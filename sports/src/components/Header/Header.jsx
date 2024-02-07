@@ -1,8 +1,25 @@
 import { Link } from 'react-router-dom';
 import './Header.css'
+import { useContext } from 'react';
+import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
+
 
 const Header = () => {
 
+
+
+    const { user, logOut,setUser } = useContext(AuthContext);
+
+    const handleSignOut =()=>{
+        logOut()
+            .then(() => {
+                
+            }).catch((error) => {
+                // An error happened.
+            });
+    }
+
+    
 
     return (
         <div className="head-container">
@@ -30,20 +47,18 @@ const Header = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
                         <li><Link to="/">Match Socre</Link></li>
-                        <li>
-                            <details>
-                                <summary>Parent</summary>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li><a>Item 3</a></li>
+                        <li><Link to="/register">Register</Link></li>
+                        <li><Link to="/login">Login</Link></li>
+                        <li><Link to="/admin">Admin</Link></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    {
+                        user ? <button onClick={handleSignOut} className="btn">Sign out</button> : 
+                            <Link to="/login"><button className="btn">Log in</button></Link>
+                        
+                    }
+                   
                 </div>
             </div>
         </div>
