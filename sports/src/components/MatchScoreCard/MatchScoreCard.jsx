@@ -31,8 +31,6 @@ const MatchScoreCard = ( {data} ) => {
             </div>
        </Link>
         
-       
-       
     );
 };
 

@@ -1,9 +1,20 @@
 import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import AdminLeft from './AdminLeft';
 
 const Admin = () => {
     return (
         <div>
-            <h2>This is admin page</h2>
+           
+            <div className="flex">
+                <AdminLeft></AdminLeft>
+                <Outlet></Outlet>
+            </div>
+         
+                
+                
+        
+           
         </div>
     );
 };

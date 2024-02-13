@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import MatchSummary from '../Test/MatchSummary';
+import MatchSummary from '../MatchSummary/MatchSummary';
 import KeyEvent from '../Home/KeyEvent/KeyEvent';
 import KeyEventTimeline from '../Home/KeyEventTimeline/KeyEventTimeline';
 

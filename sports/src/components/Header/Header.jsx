@@ -10,6 +10,7 @@ const Header = () => {
 
     const { user, logOut,setUser } = useContext(AuthContext);
 
+
     const handleSignOut =()=>{
         logOut()
             .then(() => {
@@ -23,6 +24,7 @@ const Header = () => {
 
     return (
         <div className="head-container">
+            
             <div className="navbar bg-orange-500">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -42,7 +44,7 @@ const Header = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost text-xl">Sports</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -50,6 +52,14 @@ const Header = () => {
                         <li><Link to="/register">Register</Link></li>
                         <li><Link to="/login">Login</Link></li>
                         <li><Link to="/admin">Admin</Link></li>
+                        <li>
+                            {
+                                user ? <Link to={`teaminfo/${user.email}`}>Team-Info</Link>
+                                    : <Link to="/login">Team-Info</Link>
+                            }
+                            
+                            
+                        </li>
                     </ul>
                 </div>
                 <div className="navbar-end">
