@@ -41,10 +41,79 @@ async function run() {
         const TeamInfoCollection = TeamInfoDB.collection('TeamInfoCollection');
 
 
+        const statDB = client.db('statDB');
+        const statCollection = statDB.collection('statCollection');
+
+        const standingDB = client.db('standingDB');
+        const standingCollection = standingDB.collection('standingCollection');
+
+        const addMatchDB = client.db('addMatchDB');
+        const addMatchCollection = addMatchDB.collection('addMatchCollection');
+
+        const scorerDB = client.db('scorerDB');
+        const scorerCollection = scorerDB.collection('scorerCollection');
+
+
+        const statisticsDB = client.db('statisticsDB');
+        const statisticsCollection = statisticsDB.collection('statisticsCollection');
+
+
+        const standDB = client.db('standDB');
+        const standCollection = standDB.collection('standCollection');
+
+       const data = [
+        {
+            matchId: "4455667",
+            teamId1: "223344",
+            score1: 2,
+            teamId2: "334455",
+            score2: 4,
+        },
+        {
+            matchId: "4455668",
+            teamId1: "223344",
+            score1: 2,
+            teamId2: "334466",
+            score2: 4,
+        }
+       ]
+
+        app.get('/statistics', async (req, res) => {
+
+            // const stat = await statCollection.find({}).sort({ goals: -1 }).limit(5).toArray();
+            // console.log('Found documents:', stat);
+            // res.send(stat)
+            const stat = await statisticsCollection.find({}).sort({ goals: -1 }).limit(5).toArray();
+            console.log('Found documents:', stat);
+            res.send(stat)
+        })
+
+        // app.get('/standing', async (req, res) => {
+
+        //     const result = await standingCollection.aggregate([
+        //         {
+        //             $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
+        //         }
+        //     ]).toArray();
+        //     console.log(result)
+        //     res.send(result)
+
+        // })
+
+        // app.get('/stand',async(req,res)=>{
+
+        // //    const result  = await standCollection.insertMany(data);
+           
+        //     if(2<5)console.log(true);
+        //   //  console.log(result);
+        //     res.send({sharif:'ce19012'})
+
+        // })
+
 
         app.get('/matchscore', async(req, res) => {
            
-            const documents = await collection.find({}).toArray();
+            const documents = await addMatchCollection.find({}).toArray();
           //  console.log('Found documents:', documents);
             res.send(documents)
         })
@@ -56,6 +125,7 @@ async function run() {
           //  console.log('Found documents:', documents);
             res.send(documents)
         })
+        
 
         app.get('/showschool', async (req, res) => {
             const shcoolList = await schoolCollection.find({  }).toArray();
@@ -84,11 +154,194 @@ async function run() {
             res.send(playerInfo)
         })
 
+        app.get('/teaminfo',async(req,res)=>{
+            const documents = await TeamInfoCollection.find({}).toArray();
+            res.send(documents)
+        })
+
+
+        app.post('/addmatch', async (req, res) => {
+
+            const result = await addMatchCollection.insertOne(req.body);
+            // const result = await standCollection.insertOne(req.body);
+            const {score1,score2,teamId1,teamId2} = req.body;
+            
+            const query1 = { team_name: teamId1 }
+            const document1 = await standCollection.findOne(query1);
+
+            const query2 = { team_name: teamId2 }
+            const document2 = await standCollection.findOne(query2);
+            
+            let totalGoalS1;
+            let totalGoalS2;
+            let totalGoalC1;
+            let totalGoalC2;
+            let goalDiff1;
+            let goalDiff2;
+
+    
+
+            
+            if(document1===null){
+                totalGoalS1 = score1
+                totalGoalC1 = score2;
+                goalDiff1 = 0;
+        
+            }else{
+                totalGoalS1 = score1 + document1.goals_scored;
+                totalGoalC1 = score2 + document1.goals_conceded;
+                goalDiff1 = document1.goal_difference;
+            }
+
+            if (document2 === null) {
+                totalGoalS2 = score2
+                totalGoalC2 = score1;
+                goalDiff2 = 0;
+            } else {
+                totalGoalS2 = score2 + document2.goals_scored;
+                totalGoalC2 = score1 + document2.goals_conceded;
+                goalDiff2 = document2.goal_difference;
+            }
+
+
+
+             
+            if(score1>score2){
+
+                const incData1 = {
+                    "wins": 1,
+                    "draws": 0,
+                    "losses": 0,
+                    "goals_scored": score1,
+                    "goals_conceded": score2,
+                    "goal_difference": (totalGoalS1 - totalGoalC1)-goalDiff1,
+                    "points": 3,
+                    "matches_played": 1
+                }
+                const result1 =  await standCollection.updateMany({ "team_name": teamId1 }, {
+                    $inc: incData1,
+                    $setOnInsert: {}  // Create new document if player doesn't exist
+                }, { upsert: true });
+            
+
+                const incData2 = {
+                    "wins": 0,
+                    "draws": 0,
+                    "losses": 1,
+                    "goals_scored": score2,
+                    "goals_conceded": score1,
+                    "goal_difference": (totalGoalS2 - totalGoalC2)-goalDiff2,
+                    "points": 0,
+                    "matches_played": 1
+                }
+                const result2 = await standCollection.updateMany({ "team_name": teamId2 }, {
+                    $inc: incData2,
+                    $setOnInsert: {}  // Create new document if player doesn't exist
+                }, { upsert: true });
+
+
+
+            } else if (score1<score2){
+
+                const incData1 = {
+                    "wins": 0,
+                    "draws": 0,
+                    "losses": 1,
+                    "goals_scored": score1,
+                    "goals_conceded": score2,
+                    "goal_difference": (totalGoalS1 - totalGoalC1)-goalDiff1,
+                    "points": 0,
+                    "matches_played": 1
+                }
+                const result1 = await standCollection.updateMany({ "team_name": teamId1 }, {
+                    $inc: incData1,
+                    $setOnInsert: {}  // Create new document if player doesn't exist
+                }, { upsert: true });
+
+
+                const incData2 = {
+                    "wins": 1,
+                    "draws": 0,
+                    "losses": 0,
+                    "goals_scored": score2,
+                    "goals_conceded": score1,
+                    "goal_difference": (totalGoalS2 - totalGoalC2)-goalDiff2,
+                    "points": 3,
+                    "matches_played": 1
+                }
+                const result2 = await standCollection.updateMany({ "team_name": teamId2 }, {
+                    $inc: incData2,
+                    $setOnInsert: {}  // Create new document if player doesn't exist
+                }, { upsert: true });
+
+            }else{
+                const incData1 = {
+                    "wins": 0,
+                    "draws": 1,
+                    "losses": 0,
+                    "goals_scored": score1,
+                    "goals_conceded": score2,
+                    "goal_difference": (totalGoalS1 - totalGoalC1)-goalDiff1,
+                    "points": 1,
+                    "matches_played": 1
+                }
+                const result1 = await standCollection.updateMany({ "team_name": teamId1 }, {
+                    $inc: incData1,
+                    $setOnInsert: {}  // Create new document if player doesn't exist
+                }, { upsert: true });
+
+
+                const incData2 = {
+                    "wins": 0,
+                    "draws": 1,
+                    "losses": 0,
+                    "goals_scored": score2,
+                    "goals_conceded": score1,
+                    "goal_difference": (totalGoalS2 - totalGoalC2)-goalDiff2,
+                    "points": 1,
+                    "matches_played": 1
+                }
+
+                const result2 = await standCollection.updateMany({ "team_name": teamId2 }, {
+                    $inc: incData2,
+                    $setOnInsert: {}  // Create new document if player doesn't exist
+                }, { upsert: true });
+            }
+            //console.log(req.body);
+        })
+
+        app.get('/standdata',async(req,res)=>{
+            const data = await standCollection.aggregate([
+                {
+                    $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
+                }
+            ]).toArray();
+            console.log(data)
+            res.send(data)
+        })
+
         app.post('/playerinfo', async (req, res) => {
 
             const result = await TeamInfoCollection.insertOne(req.body);
             res.send(result);
            
+        })
+
+
+
+        app.post('/addScorer', async (req, res) => {
+
+            const result = await scorerCollection.insertOne(req.body);
+
+            const stat = await statisticsCollection.updateMany({ "birthId": req.body.birthId }, {
+                $inc: { "Goals": req.body.goals },
+                $setOnInsert:  req.body  // Create new document if player doesn't exist
+            }, { upsert: true });
+
+            
+            console.log(stat);
+            res.send(stat);
+
         })
 
         app.put('/playerinfo',async(req,res)=>{

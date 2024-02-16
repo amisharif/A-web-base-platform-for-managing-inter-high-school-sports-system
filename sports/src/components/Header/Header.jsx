@@ -23,9 +23,9 @@ const Header = () => {
     
 
     return (
-        <div className="head-container">
+        <div className="head-container bg-slate-600 text-white">
             
-            <div className="navbar bg-orange-500">
+            <div className="navbar w-10/12 mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -48,10 +48,14 @@ const Header = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><Link to="/">Match Socre</Link></li>
+                        <li><Link to="/">Match Score</Link></li>
+                        <li><Link to="/standing">Standing</Link></li>
+                        <li><Link to="/statistics">Statistics</Link></li>
                         <li><Link to="/register">Register</Link></li>
                         <li><Link to="/login">Login</Link></li>
                         <li><Link to="/admin">Admin</Link></li>
+                        <li><Link to="/addmatch">Add-Match</Link></li>
+
                         <li>
                             {
                                 user ? <Link to={`teaminfo/${user.email}`}>Team-Info</Link>

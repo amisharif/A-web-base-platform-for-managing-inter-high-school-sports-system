@@ -20,6 +20,10 @@ import SchoolInfo from './components/Admin/SchoolInfo/SchoolInfo.jsx';
 import ShowTeamInfo from './components/SchoolMain/ShowTeamInfo/ShowTeamInfo.jsx';
 import UpdatePlayerInfo from './components/SchoolMain/UpdatePlayerInfo/UpdatePlayerInfo.jsx';
 import AddPlayer from './components/SchoolMain/AddPlayer/AddPlayer.jsx';
+import Statistics from './components/Statistics/Statistics.jsx';
+import Stat from './components/Statistics/Stat.jsx';
+import Standing from './components/Standing/Standing.jsx';
+import AddMatch from './components/AddMatch/AddMatch.jsx';
 
 
 const router = createBrowserRouter([
@@ -35,12 +39,31 @@ const router = createBrowserRouter([
       {
         path: "/matchdetails/:id",
         element: <MatchDetails></MatchDetails>,
-        loader: ({ params }) => fetch(`http://localhost:3000/matchdetails/${params.id}`)
+      //  loader: ({ params }) => fetch(`http://localhost:3000/matchdetails/${params.id}`)
       },
+      {
+        path: "/statistics",
+        element: <Statistics></Statistics>,
+        loader: () => fetch('http://localhost:3000/statistics')
+      },
+      {
+        path: "/standing",
+        element: <Standing></Standing>,
+        //loader: () => fetch('http://localhost:3000/standing')
+        loader: () => fetch('http://localhost:3000/standdata')
+
+  
+      },
+
       {
         path: "/register",
         element: <OfficeRegister></OfficeRegister>,
-      }, {
+      }, 
+      {
+        path: "/addmatch",
+        element: <AddMatch></AddMatch>,
+      }, 
+      {
         path: "/teaminfo/:email",
         element: <PrivateRoute><ShowTeamInfo></ShowTeamInfo></PrivateRoute>,
         loader: ({params}) =>  fetch(`http://localhost:3000/teaminfo/${params.email}`)

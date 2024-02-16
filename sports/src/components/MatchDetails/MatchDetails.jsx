@@ -6,14 +6,15 @@ import KeyEventTimeline from '../Home/KeyEventTimeline/KeyEventTimeline';
 
 const MatchDetails = () => {
 
-    const matchData = useLoaderData();
+  //  const matchData = useLoaderData();
 
 
     return (
         <div>
-            <MatchSummary matchData={matchData}></MatchSummary>
+            <h1>Match Details</h1>
+            {/* <MatchSummary matchData={matchData}></MatchSummary>
             <KeyEvent matchData={matchData}></KeyEvent>
-            <KeyEventTimeline matchData={matchData}></KeyEventTimeline>
+            <KeyEventTimeline matchData={matchData}></KeyEventTimeline> */}
         </div>
     );
 };
