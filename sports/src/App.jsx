@@ -9,6 +9,7 @@ import StudentCard from './components/SchoolMain/StudentCard/StudentCard'
 import ShowTeamInfo from './components/SchoolMain/ShowTeamInfo/ShowTeamInfo'
 import Statistics from './components/Statistics/Statistics'
 import Stat from './components/Statistics/Stat'
+import Front from './components/Front/Front'
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
       <div className="mx-auto">
         
         <Header></Header>
+        {/* <Front></Front> */}
         <Outlet></Outlet>
         
       </div>

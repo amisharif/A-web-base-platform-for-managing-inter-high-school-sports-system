@@ -125,7 +125,7 @@ async function run() {
           //  console.log('Found documents:', documents);
             res.send(documents)
         })
-        
+
 
         app.get('/showschool', async (req, res) => {
             const shcoolList = await schoolCollection.find({  }).toArray();
@@ -381,6 +381,8 @@ async function run() {
           //  console.log('Inserted document ID:', result.insertedId);
             res.status(200).json({ message: 'Form submitted successfully', data: result.insertedId });
         })
+
+        
         app.post('/showschool/:id', async (req, res) => {
 
             const id = req.params.id;

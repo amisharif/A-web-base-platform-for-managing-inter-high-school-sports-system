@@ -29,7 +29,7 @@ const Standing = () => {
                     <thead>
                         <tr>
                             <th className="px-4 py-2 bg-gray-100 font-bold">Pos</th>
-                            <th className="px-4 py-2 bg-gray-100 font-bold">Club</th>
+                            <th className="px-4 py-2 bg-gray-100 font-bold">Team</th>
                             <th className="px-4 py-2 bg-gray-100 font-bold">MP</th>
                             <th className="px-4 py-2 bg-gray-100 font-bold">W</th>
                             <th className="px-4 py-2 bg-gray-100 font-bold">D</th>

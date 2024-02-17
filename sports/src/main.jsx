@@ -24,6 +24,7 @@ import Statistics from './components/Statistics/Statistics.jsx';
 import Stat from './components/Statistics/Stat.jsx';
 import Standing from './components/Standing/Standing.jsx';
 import AddMatch from './components/AddMatch/AddMatch.jsx';
+import Front from './components/Front/Front.jsx';
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Front></Front>,
+     
+      },
+      {
+        path: "/matchscore",
         element: <MatchScore></MatchScore>,
         loader: () =>  fetch('http://localhost:3000/matchscore') 
       },
@@ -64,10 +70,16 @@ const router = createBrowserRouter([
         element: <AddMatch></AddMatch>,
       }, 
       {
+        path: "/teaminfo",
+        element: <PrivateRoute><ShowTeamInfo></ShowTeamInfo></PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:3000/teaminfo`)
+      },
+      {
         path: "/teaminfo/:email",
         element: <PrivateRoute><ShowTeamInfo></ShowTeamInfo></PrivateRoute>,
         loader: ({params}) =>  fetch(`http://localhost:3000/teaminfo/${params.email}`)
       },
+     
 
       {
         path: "/login",

@@ -44,29 +44,29 @@ const ShowSchool = () => {
                   
                     <tbody>
 
+
+                        <tr className="hover">
+
+                        </tr>
                       
                         {
                             school.map((sc,index)=>
-                                <Link to={`/admin/showschool/${sc.email}`}>
-                                    <tr className="hover">
+                                <Link to={`/admin/showschool/${sc.id}`}>
+                                    <div className=' hover:bg-slate-100'>
                                         <th>{index + 1}</th>
-                                        <td>{sc.email}</td>
-                                        <td>{sc._id}</td>
+                                        <td className='w-80'>{sc.name}</td>
+                                        {/* <td>{sc._id}</td> */}
                                         <td> <button
-
                                             onClick={() => { handleDelete(sc._id) }}
                                             className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
                                         >
                                             <FaTrash className="h-4 w-4" />
                                         </button></td>
-                                    </tr>
+                                    </div>
                             </Link>
                                
                             )
                         }
-                       
-                           
-                        
                     </tbody>
                 </table>
             </div>

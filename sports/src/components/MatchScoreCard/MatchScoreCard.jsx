@@ -24,12 +24,12 @@ const MatchScoreCard = ({ data, schoolList } ) => {
             <div className='score-card-container bg-slate-900 py-4 px-10 rounded mt-1' style={sty}>
                 <div className="socre-card flex text-white">
                     <img src="https://lsm-static-prod.livescore.com/medium/enet/8661.png" alt="" />
-                    <h2>{school1?.name}</h2>
-                    <h2 className='ml-auto'>{score1}</h2>
+                    <h3 className='text-sm'>{school1?.name}</h3>
+                    <h2 className='ml-auto '>{score1}</h2>
                 </div>
                 <div className="socre-card flex  text-white">
                     <img src="https://lsm-static-prod.livescore.com/medium/enet/8661.png" alt="" />
-                    <h2 className='text-white'>{school2?.name}</h2>
+                    <h2 className='text-white text-sm'>{school2?.name}</h2>
                     <h2 className='ml-auto'>{score2}</h2>
                 </div>
 

@@ -14,68 +14,80 @@ const AddSchool = () => {
 
         e.preventDefault();
         const name = e.target.name.value;
-        const email = e.target.email.value;
+        const id = e.target.eiin.value;
         const password = e.target.password.value;
+
 
         const newUser  ={
             name,
-            email,
+            id,
             password
         }
 
-        createUser(email,password)
-        .then(result=>{
+        console.log(newUser)
+        const url = "http://localhost:3000/admin/addschool"
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+        };
+        fetch(url, options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                
+                console.log('Response:', data);
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "School added successfully",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
 
-            updateProfile(auth.currentUser, {
-                displayName: name,
-                
-            }).then((result) => {
-                // Profile updated!
-                console.log('updated profile name',auth.currentUser.displayName);
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "School added successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                // ...
-                // alert('added successfuly');
-                // console.log(result.user);
-                const url = "http://localhost:3000/admin/addschool"
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(newUser),
-                };
-
-                fetch(url, options)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Response:', data);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-               
-                
-            }).catch((error) => {
-                 alert('failed');
-                
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-            
-        })
-        .catch(error=>{
-            alert('failed to add school');
-            console.log(err);  
-        })
+
+        
+
+
+        // createUser(email,password)
+        // .then(result=>{
+
+        //     updateProfile(auth.currentUser, {
+        //         displayName: name,
+                
+        //     }).then((result) => {
+        //         // Profile updated!
+        //         console.log('updated profile name',auth.currentUser.displayName);
+        //         Swal.fire({
+        //             position: "top-end",
+        //             icon: "success",
+        //             title: "School added successfully",
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         });
+        //         // ...
+        //         // alert('added successfuly');
+        //         // console.log(result.user);
+               
+        //     }).catch((error) => {
+        //          alert('failed');
+                
+        //     });
+        // })
+        // .catch(error=>{
+        //     alert('failed to add school');
+        //     console.log(err);  
+        // })
 
 
     }
@@ -96,9 +108,9 @@ const AddSchool = () => {
                             </div>
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Email</span>
+                                    <span className="label-text">EIIN</span>
                                 </label>
-                                <input type="email" name='email' placeholder="email" className="input input-bordered" required />
+                                <input type="text" name='eiin' placeholder="EIIN" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
