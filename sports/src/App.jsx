@@ -10,6 +10,7 @@ import ShowTeamInfo from './components/SchoolMain/ShowTeamInfo/ShowTeamInfo'
 import Statistics from './components/Statistics/Statistics'
 import Stat from './components/Statistics/Stat'
 import Front from './components/Front/Front'
+import TournamentSchedule from './components/Extra/Extra'
 
 function App() {
   

@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
 
 const AddMatch = () => {
 
-    const [matchId,setMatchId]= useState("");
+    const {schoolList} = useContext(AuthContext);
 
-    const [teamId1, setTeamId1] = React.useState("");
+    const { fixtureData } = useContext(AuthContext)
+    const parm = useParams();
+    const matchId = parm.matchid
+    const teamId1 = fixtureData[matchId].homeTeam
+    const teamId2 = fixtureData[matchId].awayTeam
+
+
+  //  const [matchId,setMatchId]= useState("");
+
+   // const [teamId1, setTeamId1] = React.useState("");
     const [score1, setScore1] = React.useState(0);
     const [formation1, setFormation1] = React.useState("");
 
-    const [teamId2, setTeamId2] = React.useState("");
+   // const [teamId2, setTeamId2] = React.useState("");
     const [score2, setScore2] = React.useState(0);
     const [formation2, setFormation2] = React.useState("");
 
@@ -18,6 +29,10 @@ const AddMatch = () => {
     const [birthId,setBirthId] = useState("");
     const [goals,setGoals] = useState(0);
 
+
+    const filteredItems1 = schoolList.filter((item) => item.id.includes(teamId1));
+    const filteredItems2 = schoolList.filter((item) => item.id.includes(teamId2));
+    console.log(filteredItems1[0].name)
 
     const handleScorerSubmit = (e)=>{
 
@@ -35,7 +50,7 @@ const AddMatch = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
             });
     }
 
@@ -47,8 +62,7 @@ const AddMatch = () => {
             matchId, teamId1, score1, formation1, teamId2, score2, formation2
         }
        
-
-        fetch("http://localhost:3000/addmatch", {
+        fetch("http://localhost:3000/addmatch", {       //add matchDB
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -57,24 +71,28 @@ const AddMatch = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+               // console.log(data);
             });
 
-        console.log('Match ID',matchId);
-        console.log("Form submitted1:", { teamId1, score1, formation1 });
-        console.log("Form submitted2:", { teamId2, score2, formation2 });
+        // console.log('Match ID',matchId);
+        // console.log("Form submitted1:", { teamId1, score1, formation1 });
+        // console.log("Form submitted2:", { teamId2, score2, formation2 });
     }
 
+
+  
+    // console.log(fixtureData[5].homeTeam, fixtureData[parm - 1].homeTeam)
+  //  console.log(fixtureData[team].homeTeam, fixtureData[team].awayTeam)
+
     return (
-        <div className='text-center'>
+        <div className='text-center mx-auto bg-slate-200 w-full'>
 
-           
-            <h1>Matches</h1>
+            {/* <h1>Matches</h1> */}
 
-            <form  className="space-y-4 w-1/2 mx-auto bg-slate-300 p-10 rounded">
-                <div className="flex items-center">
+            <form  className="space-y-4  mx-auto bg-slate-300 w-1/2 p-10 rounded mt-4">
+                {/* <div className="flex items-center">
 
-                    <label htmlFor="name" className="w-24 block font-bold text-left">
+                    <label htmlFor="name" className="w-24 block  text-left">
                         Match ID:
                     </label>
                     <input
@@ -86,13 +104,13 @@ const AddMatch = () => {
                         className="w-full px-3 py-2 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 outline-none rounded-md"
                         required
                     />
-                </div>
+                </div> */}
             {/* --------------------------------------team 1 ------------------------------------- */}
-                <div className="text-center text-xl font-extrabold">Team-1</div>
+                <div className="text-center font-bold font-serif">{filteredItems1[0].name}</div>
               
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                 
-                    <label htmlFor="name" className="w-24 block font-bold text-left">
+                    <label htmlFor="name" className="w-24 block  text-left">
                         Team ID_1:
                     </label>
                     <input
@@ -104,9 +122,9 @@ const AddMatch = () => {
                         className="w-full px-3 py-2 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 outline-none rounded-md"
                         required
                     />
-                </div>
+                </div> */}
                 <div className="flex items-center">
-                    <label htmlFor="score" className="w-24 block font-bold text-left">
+                    <label htmlFor="score" className="w-24 block text-left">
                         Score:
                     </label>
                     <input
@@ -120,7 +138,7 @@ const AddMatch = () => {
                     />
                 </div>
                 <div className="flex items-center">
-                    <label htmlFor="formation" className="w-24 block font-bold text-left">
+                    <label htmlFor="formation" className="w-24 block text-left">
                         Formation:
                     </label>
                     <select
@@ -141,11 +159,11 @@ const AddMatch = () => {
 
                 {/* ------------------------------------Team 2-------------------------------------- */}
 
-                <div className="text-center text-xl font-extrabold">Team-2</div>
+                <div className="text-center font-bold font-serif">{filteredItems2[0].name}</div>
               
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
 
-                    <label htmlFor="name" className="w-24 block font-bold text-left">
+                    <label htmlFor="name" className="w-24 block  text-left">
                         Team ID_2:
                     </label>
                     <input
@@ -157,9 +175,9 @@ const AddMatch = () => {
                         className="w-full px-3 py-2 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 outline-none rounded-md"
                         required
                     />
-                </div>
+                </div> */}
                 <div className="flex items-center">
-                    <label htmlFor="score" className="w-24 block font-bold text-left">
+                    <label htmlFor="score" className="w-24 block text-left">
                         Score:
                     </label>
                     <input
@@ -173,7 +191,7 @@ const AddMatch = () => {
                     />
                 </div>
                 <div className="flex items-center">
-                    <label htmlFor="formation" className="w-24 block font-bold text-left">
+                    <label htmlFor="formation" className="w-24 block text-left">
                         Formation:
                     </label>
                     <select
@@ -193,15 +211,11 @@ const AddMatch = () => {
                 </div>
 
                 <div className="flex items-center justify-center space-x-4">
-                    <button onClick={handleMatchSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-                        Add Match
+                    <button onClick={handleMatchSubmit} className="bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-md">
+                        Update Match Score 
                     </button>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-                        Update Match
-                    </button>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-                        Delete Match
-                    </button>
+                  
+                   
                 </div>
 
 
@@ -212,11 +226,9 @@ const AddMatch = () => {
         {/* ----------------------scorer----------------------------------  */}
 
             
+            <form className="space-y-4 w-1/2  mx-auto mt-10 mb-20 bg-slate-300 p-10 rounded">
 
-
-            <form className="space-y-4 w-1/2 mx-auto mt-20 mb-20 bg-slate-300 p-10 rounded">
-
-                <h2 className="text-center text-xl font-extrabold">Scorer</h2>
+                <h2 className="text-center font-bold text-xl font-serif">Scorer</h2>
 
                 <div className="flex items-center">
 
@@ -279,29 +291,22 @@ const AddMatch = () => {
                 </div>
                
               
-
                 <div className="flex items-center justify-center space-x-4 ">
-                    <button onClick={handleScorerSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+                    <button onClick={handleScorerSubmit} className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-md text-sm">
                         Add 
                     </button>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-md text-sm">
                         Update
                     </button>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-md text-sm">
                         Delete 
                     </button>
                 </div>
-
-
-
             </form>
 
            
 
           
-          
-
-
           
         </div>
     );

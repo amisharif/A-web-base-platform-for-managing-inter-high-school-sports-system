@@ -12,6 +12,8 @@ const AddPlayer = () => {
 
     const {user} =useContext(AuthContext);
 
+    console.log(user)
+
     const handleAddPlayer = event => {
 
         event.preventDefault();
@@ -23,9 +25,9 @@ const AddPlayer = () => {
         const position = form.position.value;
         const cls = form.cls.value;
         const photo = form.photo.value;
-        const schoolEmail = user.email;
+        const schoolId = user.eiin;
 
-        const playerData = { name, birthId, position, cls, schoolEmail,photo }
+        const playerData = { name, birthId, position, cls, schoolId,photo }
 
         console.log(playerData);
 
@@ -117,7 +119,7 @@ const AddPlayer = () => {
                         </label>
                     </div>
                 </div>
-                <input type="submit" value="Submit" className="btn btn-block" />
+                <input type="submit" value="Submit" className="btn btn-block bg-slate-300" />
 
             </form>
         </div>

@@ -84,7 +84,7 @@ async function run() {
             // console.log('Found documents:', stat);
             // res.send(stat)
             const stat = await statisticsCollection.find({}).sort({ goals: -1 }).limit(5).toArray();
-            console.log('Found documents:', stat);
+           // console.log('Found documents:', stat);
             res.send(stat)
         })
 
@@ -141,8 +141,8 @@ async function run() {
             res.send(document)
         })
 
-        app.get('/teaminfo/:email', async (req, res) => {
-            const query = {schoolEmail:req.params.email}
+        app.get('/teaminfo/:eiin', async (req, res) => {
+            const query = {schoolId:req.params.eiin}
             const teamInfoList = await TeamInfoCollection.find(query).toArray();
             res.send(teamInfoList)
         })
@@ -378,7 +378,6 @@ async function run() {
             console.log(req.body);
             const newSchool = req.body;
             const result = await schoolCollection.insertOne(newSchool);
-          //  console.log('Inserted document ID:', result.insertedId);
             res.status(200).json({ message: 'Form submitted successfully', data: result.insertedId });
         })
 
@@ -397,10 +396,6 @@ async function run() {
             }catch (error) {
                 console.log('Error deleting document:', error);
             } 
-
-            
-
-
         })
     
 

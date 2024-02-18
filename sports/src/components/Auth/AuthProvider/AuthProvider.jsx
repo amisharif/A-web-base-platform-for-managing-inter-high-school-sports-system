@@ -12,9 +12,10 @@ const AuthProvider = ({children}) => {
 
     const [user,setUser] = useState(null);
     const [loading,setLoading] = useState(true);
+    
 
     const createUser  = (email,password)=>{
-      //  setLoading(true);
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
     }
     const logIn = (email,password)=>{
@@ -37,12 +38,29 @@ const AuthProvider = ({children}) => {
 
     },[])
 
+    const [schoolList,setSchoolList] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/showschool')
+            .then(response => response.json())
+            .then(da => setSchoolList(da))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    const [fixtureData,setFixtureData ] =  useState([])
+
     const authInfo = {
         user,
+        setUser,
         createUser,
         logOut,
         logIn,
-        loading
+        loading,
+        setLoading,
+        schoolList,
+        setSchoolList,
+        fixtureData,
+        setFixtureData
     }
 
    

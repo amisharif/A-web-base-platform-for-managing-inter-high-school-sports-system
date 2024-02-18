@@ -37,32 +37,28 @@ const ShowSchool = () => {
     }
 
     return (
-       <div className="ml-10">
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                  
-                    <tbody>
-
-
-                        <tr className="hover">
-
-                        </tr>
-                      
+        <div className="pl-10 bg-slate-200 w-full pt-5" >
+            <div className="">
+                <table className="table ">
+    
+                    <tbody className='mx-auto'>    
                         {
                             school.map((sc,index)=>
                                 <Link to={`/admin/showschool/${sc.id}`}>
-                                    <div className=' hover:bg-slate-100'>
-                                        <th>{index + 1}</th>
-                                        <td className='w-80'>{sc.name}</td>
-                                        {/* <td>{sc._id}</td> */}
-                                        <td> <button
-                                            onClick={() => { handleDelete(sc._id) }}
-                                            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
-                                        >
-                                            <FaTrash className="h-4 w-4" />
-                                        </button></td>
+                                    <div className="">
+                                        <tr className=' hover:bg-slate-100 w-2/4'>
+                                            <th>{index + 1}</th>
+                                            <td className='w-80'>{sc.name}</td>
+                                            {/* <td>{sc._id}</td> */}
+                                            <td> <button
+                                                onClick={() => { handleDelete(sc._id) }}
+                                                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+                                            >
+                                                <FaTrash className="h-4 w-4" />
+                                            </button></td>
+                                        </tr>
                                     </div>
+                                   
                             </Link>
                                
                             )

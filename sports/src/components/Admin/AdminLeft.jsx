@@ -19,6 +19,7 @@ const AdminLeft = () => {
                                 {/* Sidebar content here */}
                                 <li><Link to='/admin/showschool'>Show all school</Link></li>
                                 <li><Link to='/admin/addschool'>Add new school</Link></li>
+                                <li><Link to='/admin/createfixture'>Fixture</Link></li>
                             </ul>
 
                         </div>

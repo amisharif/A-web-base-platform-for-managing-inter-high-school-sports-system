@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Header.css'
 import { useContext } from 'react';
 import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
@@ -9,15 +9,19 @@ const Header = () => {
 
 
     const { user, logOut,setUser } = useContext(AuthContext);
+    const nevigate = useNavigate();
 
 
     const handleSignOut =()=>{
-        logOut()
-            .then(() => {
+        // logOut()
+        //     .then(() => {
                 
-            }).catch((error) => {
-                // An error happened.
-            });
+        //     }).catch((error) => {
+        //         // An error happened.
+        //     });
+            setUser(null)
+            nevigate('/')
+
     }
 
     
@@ -36,10 +40,19 @@ const Header = () => {
                         <li><Link to="/standing">Standing</Link></li>
                         <li><Link to="/statistics">Statistics</Link></li>
                        {/* <li><Link to="/register">Register</Link></li>
-                        <li><Link to="/login">Login</Link></li> */}
-                        <li><Link to="/admin/showschool">Admin</Link></li>
-                        <li><Link to="/addmatch">Add-Match</Link></li>
-                        <li><Link to="/teaminfo">Team-Info</Link></li>
+                        <li><Link to="/login">Login</Link></li> */}    
+                        {/* <li><Link to="/addmatch">Add-Match</Link></li> */}
+
+                        {
+                            user?.eiin === "admin" && user?.password === "admin" && 
+                            <li><Link to="/admin/showschool">Admin</Link></li>
+                        }
+                        {
+                            user?.eiin && user?.eiin !=="admin" &&
+                            <li><Link to={`teaminfo/${user?.eiin}`}>Team-Info</Link></li>
+                        }
+
+                        
                         {/* <NavLink to="/addmatch">Add-Match</NavLink> */}
 
                         {/* <li>

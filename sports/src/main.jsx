@@ -25,6 +25,9 @@ import Stat from './components/Statistics/Stat.jsx';
 import Standing from './components/Standing/Standing.jsx';
 import AddMatch from './components/AddMatch/AddMatch.jsx';
 import Front from './components/Front/Front.jsx';
+import MatchesList from './components/Extra/Extra.jsx';
+import Fixture from './components/Admin/Fixture/Fixture.jsx';
+import Login from './components/AccessControl/Login/Login.jsx';
 
 
 const router = createBrowserRouter([
@@ -75,15 +78,16 @@ const router = createBrowserRouter([
         loader: ({ params }) => fetch(`http://localhost:3000/teaminfo`)
       },
       {
-        path: "/teaminfo/:email",
-        element: <PrivateRoute><ShowTeamInfo></ShowTeamInfo></PrivateRoute>,
-        loader: ({params}) =>  fetch(`http://localhost:3000/teaminfo/${params.email}`)
+        path: "/teaminfo/:eiin",
+        // element: <PrivateRoute><ShowTeamInfo></ShowTeamInfo></PrivateRoute>,
+        element: <ShowTeamInfo></ShowTeamInfo>,
+        loader: ({params}) =>  fetch(`http://localhost:3000/teaminfo/${params.eiin}`)
       },
      
 
       {
         path: "/login",
-        element: <OfficeLogin></OfficeLogin>,
+        element: <Login></Login>,
       },
       {
         path: "/updateplayerinfo/:birthid",
@@ -101,12 +105,22 @@ const router = createBrowserRouter([
      
       {
         path: "/admin",
-        element: <PrivateRoute><Admin></Admin></PrivateRoute>,
+        // element: <PrivateRoute><Admin></Admin></PrivateRoute>,
+        element: <Admin></Admin>,
         children:[
           {
             path:'/admin/addschool',
             element:<AddSchool></AddSchool>
           },
+          {
+            path: '/admin/createfixture',
+             element: <Fixture></Fixture>
+          },
+          {
+            path: '/admin/createfixture/:matchid',
+            element: <AddMatch></AddMatch>
+          },
+
           {
             path: '/admin/showschool',
             element: <ShowSchool></ShowSchool>,

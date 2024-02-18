@@ -58,7 +58,6 @@ const AddSchool = () => {
 
         
 
-
         // createUser(email,password)
         // .then(result=>{
 
@@ -93,7 +92,7 @@ const AddSchool = () => {
     }
     return (
         <div className='w-full'>
-            <div className=" min-h-full bg-base-300">
+            <div className=" min-h-full bg-slate-200">
                 <div className=" w-full pt-10">
                   
                     <div className="mx-auto card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

@@ -1,6 +1,19 @@
 import React from 'react';
+import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'; // Or another import path depending on your setup
+
 
 const Front = () => {
+
+
+    const handleprimary = () => {
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Tournament has not been yet started!",
+           
+        });
+    }
     return (
         <div className='mt-9'>
             <div className="flex justify-center space-x-6">
@@ -12,7 +25,7 @@ const Front = () => {
                         <div className="card-body items-center text-center">
                             <h2 className="card-title">Inter-Primary School</h2>
                             <div className="card-actions">
-                                <button className="btn btn-primary">Enter</button>
+                                <button onClick={handleprimary} className="btn btn-primary">Enter</button>
                             </div>
                         </div>
                     </div>
@@ -38,13 +51,13 @@ const Front = () => {
                         <div className="card-body items-center text-center">
                             <h2 className="card-title">Inter-College</h2>
                             <div className="card-actions">
-                                <button className="btn btn-primary">Enter</button>
+                                <button onClick={handleprimary} className="btn btn-primary">Enter</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-           
+
         </div>
     );
 };
