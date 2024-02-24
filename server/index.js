@@ -129,7 +129,6 @@ async function run() {
 
         app.get('/showschool', async (req, res) => {
             const shcoolList = await schoolCollection.find({  }).toArray();
-           // console.log('Found school:', shcoolList);
             res.send(shcoolList)
         })
 
