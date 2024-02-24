@@ -20,8 +20,9 @@ function App() {
       <div className="mx-auto">
         
         <Header></Header>
-        {/* <Front></Front> */}
+        {/* <Front></Front>  */}
         <Outlet></Outlet>
+        {/* <Extra></Extra> */}
         
       </div>
       

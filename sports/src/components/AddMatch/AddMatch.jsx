@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
+import AddScorer from '../AddScorer/AddScorer';
 
 const AddMatch = () => {
 
@@ -9,13 +10,10 @@ const AddMatch = () => {
     const { fixtureData } = useContext(AuthContext)
     const parm = useParams();
     const matchId = parm.matchid
-    const teamId1 = fixtureData[matchId].homeTeam
-    const teamId2 = fixtureData[matchId].awayTeam
+    const teamId1 = fixtureData[matchId]?.homeTeam
+    const teamId2 = fixtureData[matchId]?.awayTeam
 
 
-  //  const [matchId,setMatchId]= useState("");
-
-   // const [teamId1, setTeamId1] = React.useState("");
     const [score1, setScore1] = React.useState(0);
     const [formation1, setFormation1] = React.useState("");
 
@@ -32,7 +30,7 @@ const AddMatch = () => {
 
     const filteredItems1 = schoolList.filter((item) => item.id.includes(teamId1));
     const filteredItems2 = schoolList.filter((item) => item.id.includes(teamId2));
-    console.log(filteredItems1[0].name)
+    //console.log(filteredItems1[0]?.name)
 
     const handleScorerSubmit = (e)=>{
 
@@ -54,13 +52,21 @@ const AddMatch = () => {
             });
     }
 
+    const matchData = {
+        matchId, teamId1, score1, formation1, teamId2, score2, formation2
+    }
+
+    const teamName1 = filteredItems1[0]?.name;
+    const teamName2 = filteredItems2[0]?.name;
+
+    const sendToAddScorer = {
+        matchId, teamId1, score1, formation1, teamId2, score2, formation2,teamName1,teamName2
+    }
+
     const handleMatchSubmit = (event) => {
         event.preventDefault();
        
         
-        const matchData = {
-            matchId, teamId1, score1, formation1, teamId2, score2, formation2
-        }
        
         fetch("http://localhost:3000/addmatch", {       //add matchDB
             method: 'POST',
@@ -74,22 +80,17 @@ const AddMatch = () => {
                // console.log(data);
             });
 
-        // console.log('Match ID',matchId);
-        // console.log("Form submitted1:", { teamId1, score1, formation1 });
-        // console.log("Form submitted2:", { teamId2, score2, formation2 });
     }
 
 
-  
-    // console.log(fixtureData[5].homeTeam, fixtureData[parm - 1].homeTeam)
-  //  console.log(fixtureData[team].homeTeam, fixtureData[team].awayTeam)
+
 
     return (
         <div className='text-center mx-auto bg-slate-200 w-full'>
 
             {/* <h1>Matches</h1> */}
 
-            <form  className="space-y-4  mx-auto bg-slate-300 w-1/2 p-10 rounded mt-4">
+            <form  className="space-y-4  mx-auto bg-slate-300 w-3/4 p-10 rounded mt-4">
                 {/* <div className="flex items-center">
 
                     <label htmlFor="name" className="w-24 block  text-left">
@@ -106,23 +107,8 @@ const AddMatch = () => {
                     />
                 </div> */}
             {/* --------------------------------------team 1 ------------------------------------- */}
-                <div className="text-center font-bold font-serif">{filteredItems1[0].name}</div>
+                <div className="text-center font-bold font-serif">{filteredItems1[0]?.name}</div>
               
-                {/* <div className="flex items-center">
-                
-                    <label htmlFor="name" className="w-24 block  text-left">
-                        Team ID_1:
-                    </label>
-                    <input
-                        type="text"
-                        id="teamId1"
-                        name="teamId1"
-                        value={teamId1}
-                        onChange={(event) => setTeamId1(event.target.value)}
-                        className="w-full px-3 py-2 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 outline-none rounded-md"
-                        required
-                    />
-                </div> */}
                 <div className="flex items-center">
                     <label htmlFor="score" className="w-24 block text-left">
                         Score:
@@ -159,7 +145,7 @@ const AddMatch = () => {
 
                 {/* ------------------------------------Team 2-------------------------------------- */}
 
-                <div className="text-center font-bold font-serif">{filteredItems2[0].name}</div>
+                <div className="text-center font-bold font-serif">{filteredItems2[0]?.name}</div>
               
                 {/* <div className="flex items-center">
 
@@ -213,20 +199,15 @@ const AddMatch = () => {
                 <div className="flex items-center justify-center space-x-4">
                     <button onClick={handleMatchSubmit} className="bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-md">
                         Update Match Score 
-                    </button>
-                  
-                   
+                    </button>  
                 </div>
-
-
-     
             </form>
 
  
         {/* ----------------------scorer----------------------------------  */}
 
             
-            <form className="space-y-4 w-1/2  mx-auto mt-10 mb-20 bg-slate-300 p-10 rounded">
+            {/* <form className="space-y-4 w-1/2  mx-auto mt-10 mb-20 bg-slate-300 p-10 rounded">
 
                 <h2 className="text-center font-bold text-xl font-serif">Scorer</h2>
 
@@ -302,7 +283,9 @@ const AddMatch = () => {
                         Delete 
                     </button>
                 </div>
-            </form>
+            </form> */}
+
+            <AddScorer sendToAddScorer={sendToAddScorer}></AddScorer>
 
            
 

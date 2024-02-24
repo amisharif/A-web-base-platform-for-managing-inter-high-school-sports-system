@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const Login = () => {
 
@@ -20,16 +21,24 @@ const Login = () => {
         console.log(filteredItems[0]?.password)
 
 
-        if ((filteredItems[0]?.id === eiin && filteredItems[0]?.password === password)  ) {
+        if ((filteredItems[0]?.id === eiin && filteredItems[0]?.password === password)) {
 
             setUser({ eiin, password })
             navigate(`/teaminfo/${eiin}`);
             //console.log(data)
-        } else if ((eiin === "admin" && password === "admin")){
+        } else if ((eiin === "admin" && password === "admin")) {
             setUser({ eiin, password })
             navigate(`/admin/showschool`);
             setLoading(true)
         }
+        // else{
+        //     Swal.fire({
+        //         icon: "error",
+        //         title: "Oops...",
+        //         text: "Enter valid information!",
+                
+        //     });
+        // }
     }
     return (
         <div>
@@ -44,13 +53,13 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">EIIN</span>
                                 </label>
-                                <input type="text" value="admin" name="eiin" placeholder="EIIN" className="input input-bordered" required />
+                                <input type="text" name="eiin" placeholder="EIIN" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="text" value = "admin" name="password" placeholder="password" className="input input-bordered" required />
+                                <input type="password" name="password" value="DPE123" placeholder="password" className="input input-bordered" required />
                                 {/* <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label> */}

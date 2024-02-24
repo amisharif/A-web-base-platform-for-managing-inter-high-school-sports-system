@@ -39,10 +39,14 @@ const Header = () => {
                         <li><Link to="/matchscore">Match Score</Link></li>
                         <li><Link to="/standing">Standing</Link></li>
                         <li><Link to="/statistics">Statistics</Link></li>
+                        <li><Link to="/admin/showschool">Admin</Link></li>
+                        <li><Link to={`teaminfo/${user?.eiin}`}>Team-Info</Link></li>
                        {/* <li><Link to="/register">Register</Link></li>
                         <li><Link to="/login">Login</Link></li> */}    
                         {/* <li><Link to="/addmatch">Add-Match</Link></li> */}
 
+
+                        {/* ------------------------------------------------------------------
                         {
                             user?.eiin === "admin" && user?.password === "admin" && 
                             <li><Link to="/admin/showschool">Admin</Link></li>
@@ -51,6 +55,7 @@ const Header = () => {
                             user?.eiin && user?.eiin !=="admin" &&
                             <li><Link to={`teaminfo/${user?.eiin}`}>Team-Info</Link></li>
                         }
+                        --------------------------------------------------------------------- */}
 
                         
                         {/* <NavLink to="/addmatch">Add-Match</NavLink> */}

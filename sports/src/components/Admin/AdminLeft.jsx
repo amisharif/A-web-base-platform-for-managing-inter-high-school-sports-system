@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const AdminLeft = () => {
     return (
         <div>
-            <div className=" ">
-                <div className="left">
+            <div className="">
+                <div className="left ">
                     <div className="drawer lg:drawer-open">
                         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                         <div className="drawer-content flex flex-col items-center justify-center">

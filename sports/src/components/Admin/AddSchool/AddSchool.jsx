@@ -9,8 +9,10 @@ const AddSchool = () => {
 
     const auth = getAuth(app);
     const { createUser } = useContext(AuthContext);
+    const [district, setDistrict] = React.useState("");
 
-    const handleSubmit = (e)=>{
+
+    const handleAddSchool = (e)=>{
 
         e.preventDefault();
         const name = e.target.name.value;
@@ -21,7 +23,8 @@ const AddSchool = () => {
         const newUser  ={
             name,
             id,
-            password
+            password,
+            district
         }
 
         console.log(newUser)
@@ -91,39 +94,72 @@ const AddSchool = () => {
 
     }
     return (
-        <div className='w-full'>
-            <div className=" min-h-full bg-slate-200">
-                <div className=" w-full pt-10">
-                  
-                    <div className="mx-auto card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        
-                        <form className="card-body" onSubmit={handleSubmit}>
-                            <h1 className="text-center text-3xl font-bold">Add New School!</h1>  
-                            <div className="form-control">
-                                <label className="label ">
-                                    <span className="label-text">School Name</span>
-                                </label>
-                                <input type="text" name='name' required placeholder="School name" className="input input-bordered"  />
-                            </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">EIIN</span>
-                                </label>
-                                <input type="text" name='eiin' placeholder="EIIN" className="input input-bordered" required />
-                            </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                            </div>
-                            <div className="form-control mt-6">
-                                <button className="btn btn-primary">Add</button>
-                            </div>
-                        </form>
+        <div className="p-16 w-full bg-slate-200">
+            <h2 className="text-3xl font-extrabold">Add New School: </h2>
+            <form onSubmit={handleAddSchool} className='mt-6'>
+                {/* form name and EIIN row */}
+                <div className="md:flex mb-4">
+                    <div className="form-control md:w-1/2">
+                        <label className="label">
+                            <span className="label-text">School Name</span>
+                        </label>
+                        <label className="input-group">
+                            <input type="text" name="name" placeholder="School Name" className="input input-bordered w-full" />
+                        </label>
+                    </div>
+                    <div className="form-control md:w-1/2 ml-4">
+                        <label className="label">
+                            <span className="label-text">EIIN</span>
+                        </label>
+                        <label className="input-group">
+                            <input type="text" name="eiin" placeholder="EIIN" className="input input-bordered w-full" />
+                        </label>
                     </div>
                 </div>
-            </div>
+                {/* form District and password row */}
+                <div className="md:flex mb-4">
+                    <div className="form-control md:w-1/2">
+                        <label className="label">
+                            <span className='label-text'>District</span>
+                        </label>
+                        <label className="input-group">
+                            <select
+                                id="district"
+                                name="district"
+                                value={district}
+                                onChange={(event) => setDistrict(event.target.value)}
+                                className="input input-bordered w-full"
+                                required
+                            >
+                                <option value="">Select District</option>
+                                {/* Add your actual formation options here */}
+                                <option value="Dhaka">Dhaka</option>
+                                <option value="Chattogram">Chattogram</option>
+                                <option value="Khulna">Khulna</option>
+                                <option value="Barisal">Barisal</option>
+                                <option value="Rajshahi">Rajshahi</option>
+                                <option value="Sylhet">Sylhet</option>
+                                <option value="Rangpur">Rangpur</option>
+                                <option value="Mymensingh">Mymensingh</option>
+                                {/* ... more options */}
+                            </select>
+                        </label>
+                       
+                    </div>
+                    <div className="form-control md:w-1/2 ml-4">
+                        <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <label className="input-group">
+                            <input type="text" name="password" placeholder="Password" className="input input-bordered w-full" />
+                        </label>
+                    </div>
+                </div>
+              
+               
+                <input type="submit" value="Submit" className="btn btn-block bg-slate-300" />
+
+            </form>
         </div>
     );
 };

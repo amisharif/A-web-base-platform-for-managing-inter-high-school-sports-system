@@ -9,7 +9,7 @@ const ShowTeamInfo = () => {
    // console.log(teamData);
 
     return (
-        <div className=' bg-slate-100'>
+        <div className=' bg-slate-100 min-h-screen'>
             <div className="container flex flex-col items-center justify-center "> 
                 <div className="mt-5">
                     <Link to='/addplayer'> <button className="btn">Add new player</button></Link>
