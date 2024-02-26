@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Auth/AuthProvider/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import FixtureCard from '../FixtureCard/FixtureCard';
 import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'; 
 
@@ -9,12 +9,19 @@ import Swal from 'sweetalert2/dist/sweetalert2.all.min.js';
 
 const Fixture = () => {
 
+
     
-    const { schoolList } = useContext(AuthContext);
-    const { fixtureData, setFixtureData } = useContext(AuthContext);
+    const { schoolList, fixtureData, setFixtureData, 
+        
+        standDataA,setStandDataA, setStandDataB, setStandDataC, setStandDataD, setStandDataE } = useContext(AuthContext);
+
     const [matches,setMatches] = useState([]);
     const [allMatches,setAllMatches] = useState([]);
     const [allMatchesClone,setAllMatchesClone] = useState([]);
+
+    // const getFixtureDataCollection = useLoaderData();
+    // setFixtureData(getFixtureDataCollection)
+   // console.log('loader',getFixtureDataCollection)
 
 
 
@@ -63,12 +70,20 @@ const Fixture = () => {
         }
         return matches;
     };
-  
 
+
+    let groupA = [];
+    let groupB = [];
+    let groupC = [];
+    let groupD = [];
+    let groupE = [];
+    let groupF = [];
+    let groupG = [];
+    let groupH = [];
+  
 
     const handleFixture = () => {
 
-        let matches;
 
         const shuffled = [...schoolList]; // Create a copy of the array
         for (let i = shuffled.length - 1; i > 0; i--) {
@@ -77,16 +92,16 @@ const Fixture = () => {
         }
        // console.log(shuffled)
 
-       let groupA = [];
-       let groupB = [];
-       let groupC = [];
-       let groupD = [];
-       let groupE = [];
-       let groupF = [];
-       let groupG = [];
-       let groupH = [];
+        // const matchData = {
+        //     matchId, teamId1, score1, formation1, teamId2, score2, formation2, group: fixtureData[matchId].group       //for standing table
+        // }
 
-        let newAllMatches;
+        // useEffect(() => {
+        //     fetch('http://localhost:3000/cleara')
+        //         .then(response => response.json())
+        //         .then(da => console.log(da))
+        //         .catch(error => console.error('Error fetching data:', error));
+        // }, []);
 
 
         for(let i=0;i<4;i++){
@@ -94,43 +109,129 @@ const Fixture = () => {
             const grp = {
                ... shuffled[i],name:'A'
             }
+            fetch('http://localhost:3000/standinga', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(grp),
+            })
+            .then(data => {
+                    
+                    const newData = [...standDataA, data];
+                    setStandDataA(newData)
+                    console.log('Response:',i, newData);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            
+            
+           
             groupA.push(grp)
         }
-     
 
-    
+
+        
+       //console.log(groupA)
 
         for(let i=4;i<8;i++){
 
             const grp = {
                 ...shuffled[i], name: 'B'
             }
+
+            fetch('http://localhost:3000/standingb', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(grp),
+            })
+                .then(data => {
+                   // console.log('Response:', data);
+                    setStandDataB(data)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
             groupB.push(grp)
             //console.log(shuffled[i]);
         }
 
-  
-        //console.log(allMatches)
 
 
         for(let i = 8;i<12;i++){
             const grp = {
                 ...shuffled[i], name: 'C'
             }
+
+            fetch('http://localhost:3000/standingc', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(grp),
+            })
+                .then(data => {
+                  //  console.log('Response:', data);
+                    setStandDataC(data)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
             groupC.push(grp)
         }
+
+
+
         for(let i = 12;i<16;i++){
             const grp = {
                 ...shuffled[i], name: 'D'
             }
+
+            fetch('http://localhost:3000/standingd', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(grp),
+            })
+                .then(data => {
+                    //console.log('Response:', data);
+                    setStandDataD(data)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
             groupD.push(grp)
         }
+
         for(let i = 16;i<20;i++){
             const grp = {
                 ...shuffled[i], name: 'E'
             }
+            fetch('http://localhost:3000/standinge', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(grp),
+            })
+                .then(data => {
+                   // console.log('Response:', data);
+                    setStandDataE(data)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             groupE.push(grp)
         }
+
+
         for(let i = 20;i<24;i++){
             const grp = {
                 ...shuffled[i], name: 'F'
@@ -155,13 +256,11 @@ const Fixture = () => {
         //    -----------------------------added all the group matches to allMatches---------------------------------
 
         const allGroups = [groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH /* other groups */];
-        const allMatches = allGroups.flatMap((Group, index) => generateMatches(Group, Group[index%4].name)); // Combine and flatten
-
+        const allMatches = allGroups.flatMap((Group, index) => generateMatches(Group, Group[index%4]?.name)); // Combine and flatten
         setAllMatches(allMatches);
 
-        //console.log(allMatches)
 
-        let match = []
+        let match = []      //take one team from each group ...generate match list
 
         for(let i=0;i<6;i++){
             for (let j = i;j<48;j+=6){
@@ -170,17 +269,55 @@ const Fixture = () => {
             }
         }
 
-        setAllMatchesClone(match)
-
-
+       
+        
         // Swal.fire({
+
         //     icon: "error",
         //     title: "Oops...",
         //     text: "Fixture already created!",
         // });
+    
+       // console.log(allMatchesClone)
+
+        const url = "http://localhost:3000/groupclone"          //send suffled fixture to the database
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(match),
+        };
+
+        fetch(url, options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                //console.log('Response:', data);
+                if (data.insertedCount===48){
+                    setFixtureData(match)
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Fixture Created Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
     }
 
-    console.log(allMatchesClone)
+
+   
+    
 
     return (
         <div className='bg-slate-200 w-full '>
@@ -188,7 +325,7 @@ const Fixture = () => {
             <button onClick={handleFixture}  className="btn btn-xs sm:btn-sm md:btn-md mx-auto mt-7">Create Fixture</button>
             <h2 style={{marginLeft:'350px'}} className='font-bold py-5'> Match Schedule</h2>
 
-            {allMatchesClone.map((match, index) => (
+            {fixtureData.map((match, index) => (
                 // <li key={`${match.round}-${match.match}`} className='py-2 px-6 bg-slate-400 mt-1'>
                 //     Match {index + 1}: {match.homeTeam} vs {match.awayTeam}
                 // </li>

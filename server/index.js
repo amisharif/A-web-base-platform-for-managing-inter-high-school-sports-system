@@ -40,12 +40,8 @@ async function run() {
         const TeamInfoDB = client.db('TeamInfoDB');
         const TeamInfoCollection = TeamInfoDB.collection('TeamInfoCollection');
 
-
-        const statDB = client.db('statDB');
-        const statCollection = statDB.collection('statCollection');
-
-        const standingDB = client.db('standingDB');
-        const standingCollection = standingDB.collection('standingCollection');
+        // const standingDB = client.db('standingDB');
+        // const standingCollection = standingDB.collection('standingCollection');
 
         const addMatchDB = client.db('addMatchDB');
         const addMatchCollection = addMatchDB.collection('addMatchCollection');
@@ -53,30 +49,22 @@ async function run() {
         const scorerDB = client.db('scorerDB');
         const scorerCollection = scorerDB.collection('scorerCollection');
 
-
         const statisticsDB = client.db('statisticsDB');
         const statisticsCollection = statisticsDB.collection('statisticsCollection');
-
 
         const standDB = client.db('standDB');
         const standCollection = standDB.collection('standCollection');
 
-       const data = [
-        {
-            matchId: "4455667",
-            teamId1: "223344",
-            score1: 2,
-            teamId2: "334455",
-            score2: 4,
-        },
-        {
-            matchId: "4455668",
-            teamId1: "223344",
-            score1: 2,
-            teamId2: "334466",
-            score2: 4,
-        }
-       ]
+        const groupCloneDB = client.db('groupCloneDB');
+        const groupCloneCollection = groupCloneDB.collection('groupCloneCollection');
+
+        const standingDB = client.db('standingDB');
+        const standingACollection = standingDB.collection('standingACollection');
+        const standingBCollection = standingDB.collection('standingBCollection');
+        const standingCCollection = standingDB.collection('standingCCollection');
+        const standingDCollection = standingDB.collection('standingDCollection');
+        const standingECollection = standingDB.collection('standingECollection');
+
 
         app.get('/statistics', async (req, res) => {
 
@@ -157,6 +145,178 @@ async function run() {
             const documents = await TeamInfoCollection.find({}).toArray();
             res.send(documents)
         })
+
+        app.get('/groupclone',async(req,res)=>{
+            const documents = await groupCloneCollection.find({}).toArray();
+            res.send(documents)
+        })
+
+        app.post('/groupclone',async(req,res)=>{
+
+            const delResult = await groupCloneCollection.deleteMany({})
+            const insResult = await groupCloneCollection.insertMany(req.body);
+
+           // console.log(insResult)
+            res.send(insResult)
+        })
+
+
+
+
+        app.get('http://localhost:3000/cleara',async(req,res)=>{
+            const data  = standingACollection.deleteMany({});
+            res.send(data)
+        })
+        
+        app.get('/standdataa', async (req, res) => {
+            const data = await standingACollection.aggregate([
+                {
+                    $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
+                }
+            ]).toArray();
+            //console.log(data)
+            res.send(data)
+        })
+
+        app.get('/standdatab', async (req, res) => {
+            const data = await standingBCollection.aggregate([
+                {
+                    $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
+                }
+            ]).toArray();
+            //console.log(data)
+            res.send(data)
+        })
+
+        app.get('/standdatac', async (req, res) => {
+            const data = await standingCCollection.aggregate([
+                {
+                    $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
+                }
+            ]).toArray();
+            //console.log(data)
+            res.send(data)
+        })
+        app.get('/standdatad', async (req, res) => {
+            const data = await standingDCollection.aggregate([
+                {
+                    $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
+                }
+            ]).toArray();
+            //console.log(data)
+            res.send(data)
+        })
+        app.get('/standdatae', async (req, res) => {
+            const data = await standingECollection.aggregate([
+                {
+                    $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
+                }
+            ]).toArray();
+            //console.log(data)
+            res.send(data)
+        })
+
+
+
+
+
+        app.post('/standinga',async(req,res)=>{
+
+            const standData = {
+                team_name:req.body.id,
+                draws:0,
+                goal_difference:0,
+                goals_conceded:0,
+                goals_scored:0,
+                losses:0,
+                matches_played:0,
+                points:0,
+                wins:0
+            }
+
+            const result = await standingACollection.insertOne(standData);
+          //  console.log(result)
+            res.send(standData)
+        })
+
+        app.post('/standingb', async (req, res) => {
+
+            const standData = {
+                team_name: req.body.id,
+                draws: 0,
+                goal_difference: 0,
+                goals_conceded: 0,
+                goals_scored: 0,
+                losses: 0,
+                matches_played: 0,
+                points: 0,
+                wins: 0
+            }
+
+            const result = await standingBCollection.insertOne(standData);
+           // console.log(result)
+            res.send(standData)
+        })
+        app.post('/standingc', async (req, res) => {
+
+            const standData = {
+                team_name: req.body.id,
+                draws: 0,
+                goal_difference: 0,
+                goals_conceded: 0,
+                goals_scored: 0,
+                losses: 0,
+                matches_played: 0,
+                points: 0,
+                wins: 0
+            }
+
+            const result = await standingCCollection.insertOne(standData);
+          //  console.log(result)
+            res.send(standData)
+        })
+        app.post('/standingd', async (req, res) => {
+
+            const standData = {
+                team_name: req.body.id,
+                draws: 0,
+                goal_difference: 0,
+                goals_conceded: 0,
+                goals_scored: 0,
+                losses: 0,
+                matches_played: 0,
+                points: 0,
+                wins: 0
+            }
+
+            const result = await standingDCollection.insertOne(standData);
+            //  console.log(result)
+            res.send(standData)
+        })
+        app.post('/standinge', async (req, res) => {
+
+            const standData = {
+                team_name: req.body.id,
+                draws: 0,
+                goal_difference: 0,
+                goals_conceded: 0,
+                goals_scored: 0,
+                losses: 0,
+                matches_played: 0,
+                points: 0,
+                wins: 0
+            }
+
+            const result = await standingECollection.insertOne(standData);
+            //  console.log(result)
+            res.send(standData)
+        })
+
+
+
+
+
+
 
 
         app.post('/addmatch', async (req, res) => {
@@ -309,15 +469,10 @@ async function run() {
             //console.log(req.body);
         })
 
-        app.get('/standdata',async(req,res)=>{
-            const data = await standCollection.aggregate([
-                {
-                    $sort: { points: -1, goal_difference: -1, goals_scored: -1 } // sort by points, goal difference, and goals scored
-                }
-            ]).toArray();
-            console.log(data)
-            res.send(data)
-        })
+
+
+
+
 
         app.post('/playerinfo', async (req, res) => {
 

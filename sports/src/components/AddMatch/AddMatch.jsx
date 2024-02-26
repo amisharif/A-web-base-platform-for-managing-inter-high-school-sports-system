@@ -5,13 +5,14 @@ import AddScorer from '../AddScorer/AddScorer';
 
 const AddMatch = () => {
 
-    const {schoolList} = useContext(AuthContext);
+    const { schoolList, fixtureData } = useContext(AuthContext);
 
-    const { fixtureData } = useContext(AuthContext)
     const parm = useParams();
     const matchId = parm.matchid
     const teamId1 = fixtureData[matchId]?.homeTeam
     const teamId2 = fixtureData[matchId]?.awayTeam
+
+   // console.log(teamId1, teamId2, fixtureData)
 
 
     const [score1, setScore1] = React.useState(0);
@@ -52,12 +53,16 @@ const AddMatch = () => {
             });
     }
 
+   // console.log(fixtureData[matchId].group)       group
+
     const matchData = {
-        matchId, teamId1, score1, formation1, teamId2, score2, formation2
+        matchId, teamId1, score1, formation1, teamId2, score2, formation2, group: fixtureData[matchId].group       //for standing table
     }
 
     const teamName1 = filteredItems1[0]?.name;
     const teamName2 = filteredItems2[0]?.name;
+
+
 
     const sendToAddScorer = {
         matchId, teamId1, score1, formation1, teamId2, score2, formation2,teamName1,teamName2
@@ -66,19 +71,19 @@ const AddMatch = () => {
     const handleMatchSubmit = (event) => {
         event.preventDefault();
        
-        
+        console.log(matchData)
        
-        fetch("http://localhost:3000/addmatch", {       //add matchDB
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(matchData)
-        })
-            .then(res => res.json())
-            .then(data => {
-               // console.log(data);
-            });
+        // fetch("http://localhost:3000/addmatch", {       //add matchDB
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(matchData)
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //        // console.log(data);
+        //     });
 
     }
 
@@ -106,6 +111,7 @@ const AddMatch = () => {
                         required
                     />
                 </div> */}
+                <h2>Group: {fixtureData[matchId].group}</h2>
             {/* --------------------------------------team 1 ------------------------------------- */}
                 <div className="text-center font-bold font-serif">{filteredItems1[0]?.name}</div>
               

@@ -38,7 +38,16 @@ const AuthProvider = ({children}) => {
 
     },[])
 
+
+
     const [schoolList,setSchoolList] = useState([]);
+    const [fixtureData, setFixtureData] = useState([])
+    const [standDataA, setStandDataA] = useState([]);
+    const [standDataB, setStandDataB] = useState([]);
+    const [standDataC, setStandDataC] = useState([]);
+    const [standDataD, setStandDataD] = useState([]);
+    const [standDataE, setStandDataE] = useState([]);
+
 
     useEffect(() => {
         fetch('http://localhost:3000/showschool')
@@ -47,7 +56,48 @@ const AuthProvider = ({children}) => {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const [fixtureData,setFixtureData ] =  useState([])
+    useEffect(() => {
+        fetch('http://localhost:3000/groupclone')
+            .then(response => response.json())
+            .then(da => setFixtureData(da))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+
+    useEffect(() => {
+        fetch('http://localhost:3000/standdataa')
+            .then(response => response.json())
+            .then(standA => setStandDataA(standA))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    
+    useEffect(() => {
+        fetch('http://localhost:3000/standdatab')
+            .then(response => response.json())
+            .then(standB => setStandDataB(standB))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {
+        fetch('http://localhost:3000/standdatac')
+            .then(response => response.json())
+            .then(standC => setStandDataC(standC))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {
+        fetch('http://localhost:3000/standdatad')
+            .then(response => response.json())
+            .then(standD => setStandDataD(standD))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {
+        fetch('http://localhost:3000/standdatae')
+            .then(response => response.json())
+            .then(data => setStandDataE(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+
+
 
     const authInfo = {
         user,
@@ -60,7 +110,18 @@ const AuthProvider = ({children}) => {
         schoolList,
         setSchoolList,
         fixtureData,
-        setFixtureData
+        setFixtureData,
+        
+        standDataA,
+        setStandDataA,
+        standDataB,
+        setStandDataB,
+        standDataC,
+        setStandDataC,
+        standDataD,
+        setStandDataD,
+        standDataE,
+        setStandDataE
     }
 
    

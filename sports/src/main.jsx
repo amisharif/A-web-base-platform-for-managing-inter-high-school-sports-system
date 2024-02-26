@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         path: "/standing",
         element: <Standing></Standing>,
         //loader: () => fetch('http://localhost:3000/standing')
-        loader: () => fetch('http://localhost:3000/standdata')
+        loader: () => fetch('http://localhost:3000/standdataa')
 
   
       },
@@ -113,8 +113,9 @@ const router = createBrowserRouter([
             element:<AddSchool></AddSchool>
           },
           {
-            path: '/admin/createfixture',
-             element: <Fixture></Fixture>
+            path: '/admin/createfixture', 
+            element: <Fixture></Fixture>,
+            loader: () => fetch(`http://localhost:3000/groupclone`)
           },
           {
             path: '/admin/createfixture/:matchid',

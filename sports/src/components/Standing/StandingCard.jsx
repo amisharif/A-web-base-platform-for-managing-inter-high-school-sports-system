@@ -8,7 +8,7 @@ const StandingCard = ({ data,schoolList,index }) => {
   
 
     const matchingElement = schoolList.filter(element => element.id === team_name)[0];
-    console.log(matchingElement);
+    //console.log(matchingElement);
 
 
 
