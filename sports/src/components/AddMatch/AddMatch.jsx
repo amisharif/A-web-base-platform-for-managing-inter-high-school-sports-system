@@ -55,9 +55,7 @@ const AddMatch = () => {
 
    // console.log(fixtureData[matchId].group)       group
 
-    const matchData = {
-        matchId, teamId1, score1, formation1, teamId2, score2, formation2, group: fixtureData[matchId].group       //for standing table
-    }
+
 
     const teamName1 = filteredItems1[0]?.name;
     const teamName2 = filteredItems2[0]?.name;
@@ -67,6 +65,12 @@ const AddMatch = () => {
     const sendToAddScorer = {
         matchId, teamId1, score1, formation1, teamId2, score2, formation2,teamName1,teamName2
     }
+
+
+    const matchData = {
+        matchId, teamId1, score1, formation1, teamId2, score2, formation2, group: fixtureData[matchId]?.group       //for standing table
+    }
+
 
     const handleMatchSubmit = (event) => {
         event.preventDefault();
@@ -111,7 +115,7 @@ const AddMatch = () => {
                         required
                     />
                 </div> */}
-                <h2>Group: {fixtureData[matchId].group}</h2>
+                <h2>Group: {fixtureData[matchId]?.group}</h2>
             {/* --------------------------------------team 1 ------------------------------------- */}
                 <div className="text-center font-bold font-serif">{filteredItems1[0]?.name}</div>
               
@@ -209,6 +213,9 @@ const AddMatch = () => {
                 </div>
             </form>
 
+
+
+
  
         {/* ----------------------scorer----------------------------------  */}
 
@@ -295,8 +302,6 @@ const AddMatch = () => {
 
            
 
-          
-          
         </div>
     );
 };

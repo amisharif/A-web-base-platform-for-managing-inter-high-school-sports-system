@@ -10,9 +10,9 @@ const AddPlayer = () => {
 
 
 
-    const {user} =useContext(AuthContext);
+    const {user} =useContext(AuthContext);              //eiin password
 
-    console.log(user)
+    console.log('user',user)
 
     const handleAddPlayer = event => {
 

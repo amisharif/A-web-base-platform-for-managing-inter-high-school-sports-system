@@ -50,8 +50,6 @@ const Statistics = () => {
                        
                     </thead>
                     <tbody>
-                        
-
                         {
                             statData.map((data,index) =>
                                 <StatisticsCard index={index} schoolList={schoolList} playerList={playerList} data = {data}></StatisticsCard>

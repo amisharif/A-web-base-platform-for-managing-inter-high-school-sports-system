@@ -28,6 +28,9 @@ import Front from './components/Front/Front.jsx';
 import MatchesList from './components/Extra/Extra.jsx';
 import Fixture from './components/Admin/Fixture/Fixture.jsx';
 import Login from './components/AccessControl/Login/Login.jsx';
+import KnockoutStage from './components/Standing/KnockoutStage/KnockoutStage.jsx';
+import GroupStage from './components/Standing/GroupStage/GroupStage.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -59,7 +62,19 @@ const router = createBrowserRouter([
         path: "/standing",
         element: <Standing></Standing>,
         //loader: () => fetch('http://localhost:3000/standing')
-        loader: () => fetch('http://localhost:3000/standdataa')
+       // loader: () => fetch('http://localhost:3000/standdataa')
+
+        children: [
+          {
+            path: "/standing/groupstage",
+            element: <GroupStage></GroupStage>
+          },
+          {
+            path: "/standing/knockoutstage",
+            element: <KnockoutStage></KnockoutStage>
+          },
+         
+        ]
 
   
       },

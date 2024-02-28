@@ -13,15 +13,13 @@ const Fixture = () => {
     
     const { schoolList, fixtureData, setFixtureData, 
         
-        standDataA,setStandDataA, setStandDataB, setStandDataC, setStandDataD, setStandDataE } = useContext(AuthContext);
+        standDataA, setStandDataA, standDataB,setStandDataB, standDataC,setStandDataC, standDataD,setStandDataD, standDataE,setStandDataE,standDataF, setStandDataF,standDataG,setStandDataG,standDataH,setStandDataH } = useContext(AuthContext);
 
     const [matches,setMatches] = useState([]);
     const [allMatches,setAllMatches] = useState([]);
     const [allMatchesClone,setAllMatchesClone] = useState([]);
 
-    // const getFixtureDataCollection = useLoaderData();
-    // setFixtureData(getFixtureDataCollection)
-   // console.log('loader',getFixtureDataCollection)
+
 
 
 
@@ -96,14 +94,7 @@ const Fixture = () => {
         //     matchId, teamId1, score1, formation1, teamId2, score2, formation2, group: fixtureData[matchId].group       //for standing table
         // }
 
-        // useEffect(() => {
-        //     fetch('http://localhost:3000/cleara')
-        //         .then(response => response.json())
-        //         .then(da => console.log(da))
-        //         .catch(error => console.error('Error fetching data:', error));
-        // }, []);
-
-
+        let newDataA = []
         for(let i=0;i<4;i++){
          //   console.log(shuffled[i]);
             const grp = {
@@ -111,31 +102,35 @@ const Fixture = () => {
             }
             fetch('http://localhost:3000/standinga', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(grp),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
             })
-            .then(data => {
-                    
-                    const newData = [...standDataA, data];
-                    setStandDataA(newData)
-                    console.log('Response:',i, newData);
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataA.push(responseData)
+                    setStandDataA([...newDataA, ...standDataA])
                 })
                 .catch(error => {
+                    // Handle errors
                     console.error('Error:', error);
                 });
-            
-            
-           
             groupA.push(grp)
         }
-
-
         
+
+      
        //console.log(groupA)
 
-        for(let i=4;i<8;i++){
+        let newDataB = []
+        for(let i=4;i<8;i++){       //B
 
             const grp = {
                 ...shuffled[i], name: 'B'
@@ -143,16 +138,24 @@ const Fixture = () => {
 
             fetch('http://localhost:3000/standingb', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(grp),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
             })
-                .then(data => {
-                   // console.log('Response:', data);
-                    setStandDataB(data)
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataB.push(responseData)
+                    setStandDataB([...newDataB, ...standDataB])
                 })
                 .catch(error => {
+                    // Handle errors
                     console.error('Error:', error);
                 });
 
@@ -161,94 +164,188 @@ const Fixture = () => {
         }
 
 
-
-        for(let i = 8;i<12;i++){
+       let newDataC = []
+        for(let i = 8;i<12;i++){            //C
             const grp = {
                 ...shuffled[i], name: 'C'
             }
 
             fetch('http://localhost:3000/standingc', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(grp),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
             })
-                .then(data => {
-                  //  console.log('Response:', data);
-                    setStandDataC(data)
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataC.push(responseData)
+                    setStandDataC([...newDataC, ...standDataC])
                 })
                 .catch(error => {
+                    // Handle errors
                     console.error('Error:', error);
                 });
 
             groupC.push(grp)
         }
-
-
-
-        for(let i = 12;i<16;i++){
+        let newDataD = []
+        for(let i = 12;i<16;i++){           //D
             const grp = {
                 ...shuffled[i], name: 'D'
             }
 
             fetch('http://localhost:3000/standingd', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(grp),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
             })
-                .then(data => {
-                    //console.log('Response:', data);
-                    setStandDataD(data)
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataD.push(responseData)
+                    setStandDataD([...newDataD, ...standDataD])
                 })
                 .catch(error => {
+                    // Handle errors
                     console.error('Error:', error);
                 });
 
             groupD.push(grp)
         }
-
-        for(let i = 16;i<20;i++){
+        let newDataE = []
+        for(let i = 16;i<20;i++){               //E
             const grp = {
                 ...shuffled[i], name: 'E'
             }
             fetch('http://localhost:3000/standinge', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(grp),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
             })
-                .then(data => {
-                   // console.log('Response:', data);
-                    setStandDataE(data)
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataE.push(responseData)
+                    setStandDataE([...newDataE, ...standDataE])
                 })
                 .catch(error => {
+                    // Handle errors
                     console.error('Error:', error);
                 });
             groupE.push(grp)
         }
 
-
-        for(let i = 20;i<24;i++){
+       let newDataF = []
+        for(let i = 20;i<24;i++){               //F
             const grp = {
                 ...shuffled[i], name: 'F'
             }
+
+            fetch('http://localhost:3000/standingf', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
+            })
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataF.push(responseData)
+                    setStandDataF([...newDataF, ...standDataF])
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error:', error);
+                });
+
             groupF.push(grp)
         }
-        for(let i = 24;i<28;i++){
+
+        let newDataG = []
+        for(let i = 24;i<28;i++){           //G
             const grp = {
                 ...shuffled[i], name: 'G'
             }
+
+            fetch('http://localhost:3000/standingg', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
+            })
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataG.push(responseData)
+                    setStandDataG([...newDataG, ...standDataG])
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error:', error);
+                });
             groupG.push(grp)
             
         }
-        for(let i = 28;i<32;i++){
+        let newDataH = []
+        for(let i = 28;i<32;i++){           //H
             const grp = {
                 ...shuffled[i], name: 'H'
             }
+            fetch('http://localhost:3000/standingh', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(grp) // Only needed for JSON data
+            })
+                .then(response => {
+                    // Handle successful response
+                    if (response.ok) {
+                        return response.json(); // Convert to JSON if needed
+                    } else {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                })
+                .then(responseData => {
+                    // Process response data
+                    newDataH.push(responseData)
+                    setStandDataH([...newDataH, ...standDataH])
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error:', error);
+                });
             groupH.push(grp)
         }
 
@@ -299,7 +396,7 @@ const Fixture = () => {
             .then(data => {
                 //console.log('Response:', data);
                 if (data.insertedCount===48){
-                    setFixtureData(match)
+                    setFixtureData(match)           //---------set fixture data-------------
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -312,7 +409,6 @@ const Fixture = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-
     }
 
 

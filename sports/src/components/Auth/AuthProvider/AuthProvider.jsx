@@ -47,6 +47,10 @@ const AuthProvider = ({children}) => {
     const [standDataC, setStandDataC] = useState([]);
     const [standDataD, setStandDataD] = useState([]);
     const [standDataE, setStandDataE] = useState([]);
+    const [standDataF, setStandDataF] = useState([]);
+    const [standDataG, setStandDataG] = useState([]);
+    const [standDataH, setStandDataH] = useState([]);
+    const [teamInfo, setTeamInfo] = useState([]);
 
 
     useEffect(() => {
@@ -95,6 +99,32 @@ const AuthProvider = ({children}) => {
             .then(data => setStandDataE(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
+    useEffect(() => {
+        fetch('http://localhost:3000/standdataf')
+            .then(response => response.json())
+            .then(data => setStandDataF(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/standdatag')
+            .then(response => response.json())
+            .then(data => setStandDataG(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {
+        fetch('http://localhost:3000/standdatah')
+            .then(response => response.json())
+            .then(data => setStandDataH(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    useEffect(() => {                   //get all player info
+        fetch('http://localhost:3000/teaminfo')
+            .then(response => response.json())
+            .then(data => setTeamInfo(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
 
 
 
@@ -121,7 +151,16 @@ const AuthProvider = ({children}) => {
         standDataD,
         setStandDataD,
         standDataE,
-        setStandDataE
+        setStandDataE,
+        standDataF,
+        setStandDataF,
+        standDataG,
+        setStandDataG,
+        standDataH,
+        setStandDataH,
+
+        teamInfo,
+        setTeamInfo
     }
 
    
