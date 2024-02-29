@@ -37,8 +37,8 @@ async function run() {
         const schoolInfoDB = client.db('schoolInfoDB');
         const schoolInfoCollection = schoolInfoDB.collection('schoolInfoCollection');
 
-        const TeamInfoDB = client.db('TeamInfoDB');
-        const TeamInfoCollection = TeamInfoDB.collection('TeamInfoCollection');
+        const playerInfoDB = client.db('playerInfoDB');
+        const playerInfoCollection = playerInfoDB.collection('playerInfoCollection');
 
         // const standingDB = client.db('standingDB');
         // const standingCollection = standingDB.collection('standingCollection');
@@ -133,19 +133,19 @@ async function run() {
 
         app.get('/teaminfo/:eiin', async (req, res) => {
             const query = { schoolId: req.params.eiin }
-            const teamInfoList = await TeamInfoCollection.find(query).toArray();
+            const teamInfoList = await playerInfoCollection.find(query).toArray();
             res.send(teamInfoList)
         })
 
         app.get('/playerinfo/:birthid', async (req, res) => {
 
             const query = { birthId: req.params.birthid }
-            const playerInfo = await TeamInfoCollection.findOne(query);
+            const playerInfo = await playerInfoCollection.findOne(query);
             res.send(playerInfo)
         })
 
-        app.get('/teaminfo', async (req, res) => {
-            const documents = await TeamInfoCollection.find({}).toArray();
+        app.get('/playerinfo', async (req, res) => {
+            const documents = await playerInfoCollection.find({}).toArray();
             res.send(documents)
         })
 
@@ -553,10 +553,11 @@ async function run() {
             //console.log(req.body);
         })
 
+        
 
         app.post('/playerinfo', async (req, res) => {
 
-            const result = await TeamInfoCollection.insertOne(req.body);
+            const result = await playerInfoCollection.insertOne(req.body);
             res.send(result);
 
         })
@@ -591,7 +592,7 @@ async function run() {
                     photo: updatedPlayerInfo.photo,
                 }
             }
-            const result = await TeamInfoCollection.updateOne(filter, player, options);
+            const result = await playerInfoCollection.updateOne(filter, player, options);
             res.send(result);
 
             // console.log(updatedData);
@@ -601,7 +602,7 @@ async function run() {
         app.delete('/playerinfo/:birthid', async (req, res) => {
             const id = req.params.birthid;
             const query = { birthId: id }
-            const result = await TeamInfoCollection.deleteOne(query);
+            const result = await playerInfoCollection.deleteOne(query);
             res.send(result);
         })
 

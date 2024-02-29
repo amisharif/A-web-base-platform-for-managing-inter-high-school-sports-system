@@ -27,7 +27,10 @@ const AddPlayer = () => {
         const photo = form.photo.value;
         const schoolId = user.eiin;
 
-        const playerData = { name, birthId, position, cls, schoolId,photo }
+        // -------------------------backend data----------------------------
+        const redCard = 0,yellowCard=0,goal=0,assist=0
+
+        const playerData = { name, birthId, position, cls, schoolId,photo ,redCard,yellowCard,goal,assist}
 
         console.log(playerData);
 

@@ -59,7 +59,9 @@ const Fixture = () => {
                     match: match + 1, // Adjust for human-readable numbering
                     homeTeam: data[home],
                     awayTeam: data[away],
-                    group:grp
+                    group:grp,
+                    homeScore:-1,
+                    awayScore:-1
                 };
 
                 matches.push(currentMatch);

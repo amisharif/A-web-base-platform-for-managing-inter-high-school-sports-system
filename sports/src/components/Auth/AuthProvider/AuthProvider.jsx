@@ -50,7 +50,7 @@ const AuthProvider = ({children}) => {
     const [standDataF, setStandDataF] = useState([]);
     const [standDataG, setStandDataG] = useState([]);
     const [standDataH, setStandDataH] = useState([]);
-    const [teamInfo, setTeamInfo] = useState([]);
+    const [playerInfo, setPlayerInfo] = useState([]);
 
 
     useEffect(() => {
@@ -120,9 +120,9 @@ const AuthProvider = ({children}) => {
     }, []);
 
     useEffect(() => {                   //get all player info
-        fetch('http://localhost:3000/teaminfo')
+        fetch('http://localhost:3000/playerinfo')
             .then(response => response.json())
-            .then(data => setTeamInfo(data))
+            .then(data => setPlayerInfo(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
@@ -159,8 +159,8 @@ const AuthProvider = ({children}) => {
         standDataH,
         setStandDataH,
 
-        teamInfo,
-        setTeamInfo
+        playerInfo,
+        setPlayerInfo
     }
 
    

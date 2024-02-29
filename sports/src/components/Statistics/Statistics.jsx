@@ -1,43 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import StatisticsCard from '../StatisticsCard/StatisticsCard';
+import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
 
 const Statistics = () => {
 
 
-   const statData = useLoaderData();            //statistics Collection
- //  console.log(statData);
-
-  //  const {birthId,Goals,pTeamId} = statData;
-    const [playerList, setPlayerList] = useState([]);
-    const [schoolList, setSchoolList] = useState([]);
-
-
-    useEffect(() => {
-        fetch('http://localhost:3000/teaminfo')
-            .then(response => response.json())
-            .then(data => setPlayerList(data))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-
-
-    useEffect(() => {
-        fetch('http://localhost:3000/showschool')
-            .then(response => response.json())
-            .then(da => setSchoolList(da))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-
-
-    
+    const { playerInfo, schoolList } = useContext(AuthContext)
 
 
 
 
     return (
-        <div>
+        <div className='w-3/4 mx-auto'>
+
+            {/* ----------------------------Top scorrer----------------------------- */}
             <div className="container mx-auto py-8">
-                <h1 className="text-3xl font-bold text-center mb-4">Scorers</h1>
+                <h1 className="text-xl text-center mb-4">Top Scorers</h1>
                 <table className="table w-full text-center rounded-lg shadow">
                     <thead>
 
@@ -45,20 +24,96 @@ const Statistics = () => {
                             <th className="px-4 py-2 bg-gray-200 font-bold">Rank</th>
                             <th className="px-4 py-2 bg-gray-200 font-bold">Player</th>
                             <th className="px-4 py-2 bg-gray-200 font-bold">Goals</th>
-                            <th className="px-4 py-2 bg-gray-200 font-bold">Team</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">School</th>
                         </tr>
-                       
+
                     </thead>
                     <tbody>
                         {
-                            statData.map((data,index) =>
-                                <StatisticsCard index={index} schoolList={schoolList} playerList={playerList} data = {data}></StatisticsCard>
-                                )
+                            playerInfo.map((data, index) =>
+                                <StatisticsCard index={index} schoolList={schoolList} data={data} contribution={data.goal}></StatisticsCard>
+                            )
                         }
-                     
+
                     </tbody>
                 </table>
             </div>
+
+            {/* ----------------------------------Top Assist-------------------------------- */}
+            <div className="container mx-auto py-8">
+                <h1 className="text-xl text-center mb-4">Top Assist</h1>
+                <table className="table w-full text-center rounded-lg shadow">
+                    <thead>
+
+                        <tr>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Rank</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Player</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Assist</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">School</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {
+                            playerInfo.map((data, index) =>
+                                <StatisticsCard index={index} schoolList={schoolList} data={data} contribution={data.assist}></StatisticsCard>
+                            )
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            {/* ----------------------------------Top Yellow card-------------------------------- */}
+            <div className="container mx-auto py-8">
+                <h1 className="text-xl text-center mb-4">Top Yellow Card</h1>
+                <table className="table w-full text-center rounded-lg shadow">
+                    <thead>
+
+                        <tr>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Rank</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Player</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Yellow Card</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">School</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {
+                            playerInfo.map((data, index) =>
+                                <StatisticsCard index={index} schoolList={schoolList} data={data} contribution={data.yellowCard}></StatisticsCard>
+                            )
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            {/* ----------------------------------Top Red card-------------------------------- */}
+            <div className="container mx-auto py-8">
+                <h1 className="text-xl text-center mb-4">Top Red Card</h1>
+                <table className="table w-full text-center rounded-lg shadow">
+                    <thead>
+
+                        <tr>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Rank</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Player</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">Red Card</th>
+                            <th className="px-4 py-2 bg-gray-200 font-bold">School</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {
+                            playerInfo.map((data, index) =>
+                                <StatisticsCard index={index} schoolList={schoolList} data={data} contribution={data.redCard}></StatisticsCard>
+                            )
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
         </div>
     );
 };
