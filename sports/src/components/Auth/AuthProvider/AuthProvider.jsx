@@ -10,7 +10,7 @@ const auth = getAuth(app);
 
 const AuthProvider = ({children}) => {
 
-    const [user,setUser] = useState(null);
+    const [user,setUser] = useState({});
     const [loading,setLoading] = useState(true);
     
 
@@ -51,6 +51,11 @@ const AuthProvider = ({children}) => {
     const [standDataG, setStandDataG] = useState([]);
     const [standDataH, setStandDataH] = useState([]);
     const [playerInfo, setPlayerInfo] = useState([]);
+    const [topScorer, setTopScorer] = useState([]);
+    const [topAssist, setTopAssist] = useState([]);
+    const [topYellowCard, setTopYellowCard] = useState([]);
+    const [topRedCard, setTopRedCard] = useState([]);
+    const [management, setManagement] = useState([]);
 
 
     useEffect(() => {
@@ -67,57 +72,55 @@ const AuthProvider = ({children}) => {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
+    // -------------------------------------standing------------------------------
 
-    useEffect(() => {
-        fetch('http://localhost:3000/standdataa')
-            .then(response => response.json())
-            .then(standA => setStandDataA(standA))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-    
-    useEffect(() => {
-        fetch('http://localhost:3000/standdatab')
-            .then(response => response.json())
-            .then(standB => setStandDataB(standB))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-    useEffect(() => {
-        fetch('http://localhost:3000/standdatac')
-            .then(response => response.json())
-            .then(standC => setStandDataC(standC))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-    useEffect(() => {
-        fetch('http://localhost:3000/standdatad')
-            .then(response => response.json())
-            .then(standD => setStandDataD(standD))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-    useEffect(() => {
-        fetch('http://localhost:3000/standdatae')
-            .then(response => response.json())
-            .then(data => setStandDataE(data))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-    useEffect(() => {
-        fetch('http://localhost:3000/standdataf')
-            .then(response => response.json())
-            .then(data => setStandDataF(data))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    for (let i = 97; i <= 104; i++) {
+        const chr = String.fromCharCode(i)
+   
+        useEffect(() => {
+            fetch(`http://localhost:3000/standing/${chr}`)
+                .then(response => response.json())
+                .then(data => 
+                    {
+                    switch (chr) {
+                        case 'a':
+                            setStandDataA(data);
+                            break;
+                        case 'b':
+                            setStandDataB(data);
+                            break;
+                        case 'c':
+                            setStandDataC(data);
+                            break;
+                        case 'd':
+                            setStandDataD(data);
+                            break;
+                        case 'e':
+                            setStandDataE(data);
+                            break;
+                        case 'f':
+                            setStandDataF(data);
+                            break;
+                        case 'g':
+                            setStandDataG(data);
+                            break;
+                        case 'h':
+                            setStandDataH(data);
+                            break;
+                        
+                        // ... add cases for other characters
+                        default:
+                            console.error('Unexpected character:', chr);
+                    }
+                    })
+                .catch(error => console.error('Error fetching data:', error));
+        }, []);
+       
+    }
 
-    useEffect(() => {
-        fetch('http://localhost:3000/standdatag')
-            .then(response => response.json())
-            .then(data => setStandDataG(data))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
-    useEffect(() => {
-        fetch('http://localhost:3000/standdatah')
-            .then(response => response.json())
-            .then(data => setStandDataH(data))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+   
+
+    // ---------------------------------------------------------------------------
 
     useEffect(() => {                   //get all player info
         fetch('http://localhost:3000/playerinfo')
@@ -125,42 +128,48 @@ const AuthProvider = ({children}) => {
             .then(data => setPlayerInfo(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
-
+    useEffect(() => {                   //get all player info
+        fetch('http://localhost:3000/topscorer')
+            .then(response => response.json())
+            .then(data => setTopScorer(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {                   //get all player info
+        fetch('http://localhost:3000/topassist')
+            .then(response => response.json())
+            .then(data => setTopAssist(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {                   //get all player info
+        fetch('http://localhost:3000/topyellowcard')
+            .then(response => response.json())
+            .then(data => setTopYellowCard(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {                   //get all player info
+        fetch('http://localhost:3000/topredcard')
+            .then(response => response.json())
+            .then(data => setTopRedCard(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+    useEffect(() => {                   //get all player info
+        fetch('http://localhost:3000/management')
+            .then(response => response.json())
+            .then(data => setManagement(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
 
 
 
     const authInfo = {
         user,
-        setUser,
-        createUser,
-        logOut,
-        logIn,
-        loading,
-        setLoading,
-        schoolList,
-        setSchoolList,
-        fixtureData,
-        setFixtureData,
-        
-        standDataA,
-        setStandDataA,
-        standDataB,
-        setStandDataB,
-        standDataC,
-        setStandDataC,
-        standDataD,
-        setStandDataD,
-        standDataE,
-        setStandDataE,
-        standDataF,
-        setStandDataF,
-        standDataG,
-        setStandDataG,
-        standDataH,
-        setStandDataH,
+        setUser,createUser,logOut,logIn,loading,setLoading,schoolList,setSchoolList,
+        fixtureData,setFixtureData,standDataA,setStandDataA,standDataB,setStandDataB,
+        standDataC,setStandDataC,standDataD,setStandDataD,standDataE,setStandDataE,
+        standDataF,setStandDataF,standDataG,setStandDataG,standDataH,setStandDataH,
 
-        playerInfo,
-        setPlayerInfo
+        playerInfo,setPlayerInfo,topScorer,setTopScorer,topAssist,topYellowCard,topRedCard,
+        management,setManagement
     }
 
    

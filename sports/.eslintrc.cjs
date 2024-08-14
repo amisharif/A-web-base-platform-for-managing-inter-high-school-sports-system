@@ -22,9 +22,10 @@ module.exports = {
     "browser": true,
     "node": true
   },
-  propTypes : {
-    column: PropTypes.shape({
-      title: PropTypes.string
-    })
-  },
+  "react/prop-types": "off"
+  // propTypes : {
+  //   column: PropTypes.shape({
+  //     title: PropTypes.string
+  //   })
+  // },
 }

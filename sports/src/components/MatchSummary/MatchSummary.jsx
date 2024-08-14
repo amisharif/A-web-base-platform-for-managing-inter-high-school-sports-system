@@ -1,71 +1,67 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './MatchSummary.css'
 import App from './../../App';
 import ycard from '../../assets/icons/yellow.png';
 import KeyEvent from '../Home/KeyEvent/KeyEvent';
+import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
+import useGroupClone from '../customHook/useGroupClone';
 
-const MatchSummary = ({ matchData }) => {
 
-    const { team1, team2, team1Score, team2Score, team1Players, team2Players, timeline, logo1, logo2 } = matchData;
-    console.log(timeline);
+const MatchSummary = ({ playersInMatch, matchID }) => {
+
+    const { playerInfo, schoolList } = useContext(AuthContext);
+    const [groupClone] = useGroupClone();
+
+    const number = (matchID.matchId);
+
+    const filteredItems = groupClone.filter((item) =>
+        String(item.matchId).includes(number)
+    );
+
+
+    // console.log(filteredItems[0]?.homeTeam)
+    const sn1 = schoolList.filter((item) => item.id.includes(filteredItems[0]?.homeTeam));
+    const sn2 = schoolList.filter((item) => item.id.includes(filteredItems[0]?.awayTeam));
+
 
 
 
     return (
-        <div className='match-summary-container bg-slate-900 p-10 '>
-            <div className="flex ">
-                <div className="left w-1/3  flex items-center justify-end text-4xl text-white space-x-4">
-                    <h2 className='font-serif'>{team1}</h2>
-                    <img src={logo1} alt="" />
+        <div className='match-summary-container bg-slate-900 p-10 w-full'>
+            <div className="flex w-1/2 mx-auto">
+                <div className="left w-1/3   items-center justify-end  text-white ">
+                    <h2 className='text-4xl ml-24'>{filteredItems[0]?.homeScore}</h2>
+                    <p>{sn1[0]?.name}</p>
+                    
+                    {/* <img src={logo1} alt="" /> */}
                 </div>
                 <div className="middle w-1/3 flex flex-col items-center justify-center text-4xl text-white">
-                    <h2>Time</h2>
-                    <h1>{team1Score}-{team2Score}</h1>
+                    <h2>vs</h2>
+                    {/* <h1>{team1Score}-{team2Score}</h1> */}
                 </div>
-                <div className="left w-1/3 flex items-center justify-start text-4xl text-white space-x-4">
-                    <img src={logo2} alt="" />
-                    <h2 className='text-4xl font-serif'>{team2}</h2>
-                </div>
-            </div>
-            <div className="scorer-container flex justify-between my-4 border-white border-y-2">
-
-                <div className="scorer  w-1/2 text-center my-4">
-                    <ul className='text-white'>
-
-                        {timeline.map((item) => (
-                            // Conditionally render based on some condition
-
-                            item.teamname === team1 && item.type === 'Goal' && (
-                                <div key={item.id}>
-                                    {/* Render item content */}
-                                    <p>{item.name} {item.time}</p>
-                                </div>
-                            )
-
-                        ))}
-                        {/* <li>Saad Natiq Naji 68'</li>
-                        <li>Ayman Hussein 76'</li> */}
-                    </ul>
-                </div>
-                <div className="empty w-1/3"></div>
-                <div className="scorer w-1/2 my-4">
-                    <ul className='text-white text-center'>
-                        {timeline.map((item) => (
-                            // Conditionally render based on some condition
-
-                            item.teamname === team2 && item.type === 'Goal' && (
-                                <div key={item.id}>
-                                    {/* Render item content */}
-                                    <p className='text-white'>{item.name} {item.time}</p>
-                                </div>
-                            )
-
-                        ))}
-                    </ul>
+                <div className="left w-1/3  items-center justify-start  text-white">
+                    {/* <img src={logo2} alt="" /> */}
+                    <h2 className='text-4xl ml-12'>{filteredItems[0]?.awayScore}</h2>
+                    <p>{sn2[0]?.name}</p>
                 </div>
             </div>
 
 
+            <div className="text-white text-center mt-16 w-1/3 mx-auto border-t-2">
+                <h2 className='text-2xl py-4'>Timeline</h2>
+
+                {playersInMatch && playersInMatch.map((data) => (
+
+                    <div className='flex space-x-3 justify-between mt-6 ' key={data._id}>
+
+                        <p> {data.name}</p>
+                        <p className='text-left'>{data.contribution}</p>
+                        <p>Time: {data.time}</p>
+
+                    </div>
+
+                ))}
+            </div>
         </div>
     );
 };

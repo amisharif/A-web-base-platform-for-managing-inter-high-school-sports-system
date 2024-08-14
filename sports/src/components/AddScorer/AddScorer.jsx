@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../Auth/AuthProvider/AuthProvider';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'; 
 
 const AddScorer = ({ sendToAddScorer }) => {
 
-    const {teamInfo} = useContext(AuthContext)
+    const {playerInfo} = useContext(AuthContext)
 
 
     const {
@@ -22,7 +23,7 @@ const AddScorer = ({ sendToAddScorer }) => {
 
     //  if (pMatchId ==="100742")console.log("borishal")
 
-    console.log(pTeamId)
+    //console.log(pTeamId)
 
 
     let selectedPlayerList  = []
@@ -33,7 +34,7 @@ const AddScorer = ({ sendToAddScorer }) => {
         setPTeamId(eiin)
         selectedPlayerList = []
 
-        const filteredItems = teamInfo.filter((item) => item.schoolId.includes(eiin));
+        const filteredItems = playerInfo.filter((item) => item.schoolId.includes(eiin));
       //  console.log(filteredItems)
 
         filteredItems.map(item=>{
@@ -51,8 +52,12 @@ const AddScorer = ({ sendToAddScorer }) => {
     const handleScorerSubmit = (e) => {
 
         e.preventDefault();
+
+        const filteredItems = playerInfo.filter((item) => item.birthId.includes(selectedPlayerId));
+      //  console.log(filteredItems[0].name)
+
         const scorerData = {
-            matchId, pTeamId, selectedPlayerId, contribution,time,selectedPlayerId
+                matchId, pTeamId, selectedPlayerId, contribution,time,selectedPlayerId,name:filteredItems[0].name
         }
 
       //  console.log(scorerData)
@@ -65,7 +70,16 @@ const AddScorer = ({ sendToAddScorer }) => {
         })
             .then(res => res.json())
             .then(data => {
-                //console.log(data);
+                console.log(data.acknowledged)
+                if (data.acknowledged){
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Added successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             });
     }
 
@@ -78,7 +92,7 @@ const AddScorer = ({ sendToAddScorer }) => {
 
             <div className="flex items-center">
                 <label className="w-32 block text-left">
-                    <span className='label-text'>Select School</span>
+                    School:
                 </label>
                 <label className="input-group w-full">
                     <select
@@ -104,7 +118,7 @@ const AddScorer = ({ sendToAddScorer }) => {
             <div className="flex items-center">
 
                 <label htmlFor="name" className="w-32 block  text-left">
-                    Birth ID:
+                    Player:
                 </label>
                 <label className="input-group w-full">
                     <select
@@ -117,6 +131,7 @@ const AddScorer = ({ sendToAddScorer }) => {
                     >
                         <option>Select Birth ID</option>
                         {selectedPlayer.map((option) => (
+                            
                             <option key={option} value={option}>
                                 {option}
                             </option>
@@ -149,6 +164,7 @@ const AddScorer = ({ sendToAddScorer }) => {
 
                         {/* Add your actual formation options here */}
                        
+                        <option value="">Select Contribution</option>
                         <option value="Goal">Goal</option>
                         <option value="Yellow Card">Yellow Card</option>
                         <option value="Red Card">Red Card</option>

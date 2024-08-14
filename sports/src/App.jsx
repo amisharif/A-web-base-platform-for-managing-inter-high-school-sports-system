@@ -16,18 +16,15 @@ function App() {
   
 
   return (
-    <>
-      <div className="mx-auto">
-        
-        <Header></Header>
-        {/* <Front></Front>  */}
-        <Outlet></Outlet>
-        {/* <Extra></Extra> */}
-        
-      </div>
-      
-    </>
-  )
+      <>
+          <div className="mx-auto bg-slate-200">
+              <Header></Header>
+              {/* <Front></Front>  */}
+              <Outlet></Outlet>
+              {/* <Extra></Extra> */}
+          </div>
+      </>
+  );
 }
 
 export default App

@@ -1,11 +1,12 @@
 
 import { Link } from 'react-router-dom';
 import './MatchScoreCard.css'
+import football1 from "../../assets/icons/football.png";
 
 const MatchScoreCard = ({ data, schoolList } ) => {
 
     
-    const {_id,homeTeam,awayTeam,homeScore,awayScore} = data;
+    const {_id,homeTeam,awayTeam,homeScore,awayScore,matchId} = data;
 
     const sty = {
         width:'70%',
@@ -19,23 +20,32 @@ const MatchScoreCard = ({ data, schoolList } ) => {
 
    
     return (
-
-        <Link to={`/matchdetails/${_id}`}>
-            <div className='score-card-container bg-slate-900 py-4 px-10 rounded mt-1' style={sty}>
+        <Link to={`/matchdetails/${data.matchId}`}>
+            <div
+                className="score-card-container bg-cyan-900 py-4 px-10 rounded mt-1"
+                style={sty}
+            >
+                <div className="text-white">
+                    <p>{matchId}</p>
+                </div>
                 <div className="socre-card flex text-white">
-                    <img src="https://lsm-static-prod.livescore.com/medium/enet/8661.png" alt="" />
-                    <h3 className='text-sm'>{school1?.name}</h3>
-                    <h2 className='ml-auto '>{homeScore === -1 ? '--' : homeScore}</h2>
+                    <img src={football1} alt="" className='mr-2'/>
+                    <h3 className="text-sm">{school1?.name}</h3>
+                    <h2 className="ml-auto ">
+                        {/* {homeScore} */}
+                        {homeScore === -1 ? "--" : homeScore}
+                    </h2>
                 </div>
                 <div className="socre-card flex  text-white">
-                    <img src="https://lsm-static-prod.livescore.com/medium/enet/8661.png" alt="" />
-                    <h2 className='text-white text-sm'>{school2?.name}</h2>
-                    <h2 className='ml-auto'>{homeScore === -1 ? '--' : homeScore}</h2>
+                    <img src={football1} alt=""  className='mr-2'/>
+                    <h2 className="text-white text-sm">{school2?.name}</h2>
+                    <h2 className="ml-auto">
+                        {awayScore === -1 ? "--" : awayScore}
+                        {/* {awayScore} */}
+                    </h2>
                 </div>
-
             </div>
-       </Link>
-        
+        </Link>
     );
 };
 

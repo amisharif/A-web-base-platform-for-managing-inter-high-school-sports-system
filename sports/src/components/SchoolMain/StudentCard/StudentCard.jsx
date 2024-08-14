@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import player_icon from "../../../assets/icons/player-Icon.jpg";
 
 
 const StudentCard = ({data,player,setPlayer}) => {
@@ -45,7 +46,9 @@ const StudentCard = ({data,player,setPlayer}) => {
 
     return (
         <div className="card card-side bg-base-100 shadow-xl py-4">
-            <figure><img src="https://i.ibb.co/vBRyyLH/player-Icon.jpg" alt="Movie" /></figure>
+            <figure>
+                <img src={player_icon} alt="player_icon" />
+            </figure>
             <div className="flex justify-between w-full pr-4">
                 <div className="mt-8">
                     <h2 className="card-title">Name: {name}</h2>
@@ -55,11 +58,15 @@ const StudentCard = ({data,player,setPlayer}) => {
                 </div>
                 <div className="card-actions justify-end">
                     <div className="join join-vertical space-y-4 mt-4">
-
-                        <Link to={`/updateplayerinfo/${birthId}`}><button className="btn">Edit</button></Link>
-                        <button onClick={() => handleDelete(birthId)}className="btn bg-orange-500">X</button>
-                      
-                        
+                        <Link to={`/updateplayerinfo/${birthId}`}>
+                            <button className="btn">Edit</button>
+                        </Link>
+                        <button
+                            onClick={() => handleDelete(birthId)}
+                            className="btn bg-orange-500"
+                        >
+                            X
+                        </button>
                     </div>
                 </div>
             </div>

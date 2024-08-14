@@ -7,12 +7,13 @@ const StatisticsCard = ({ data, index, schoolList, contribution }) => {
         schoolId)[0];
   
     return (
-        <tr key={data._id} className='hover:bg-gray-100'>
-
-            <td className="px-4 py-2 border ">{index + 1}</td>
-            <td className="px-4 py-2 border ">{data?.name}</td>
-            <td className="px-4 py-2 border ">{contribution}</td>
-            <td className="px-4 py-2 border ">{schoolMatch?.name}</td>
+        <tr key={data._id} className="hover:bg-cyan-800">
+            <td className="px-4 py-2 border border-sky-950">{index + 1}</td>
+            <td className="px-4 py-2 border border-sky-950">{data?.name}</td>
+            <td className="px-4 py-2 border border-sky-950">{contribution}</td>
+            <td className="px-4 py-2 border border-sky-950">
+                {schoolMatch?.name}
+            </td>
         </tr>
     );
 };

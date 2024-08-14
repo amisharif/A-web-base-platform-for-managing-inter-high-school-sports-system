@@ -1,31 +1,88 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const AdminLeft = () => {
     return (
         <div>
             <div className="">
-                <div className="left ">
+                <div className="left pt-12">
                     <div className="drawer lg:drawer-open">
-                        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                        <div className="drawer-content flex flex-col items-center justify-center">
-                            {/* Page content here */}
-                            <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                        <input
+                            id="my-drawer-2"
+                            type="checkbox"
+                            className="drawer-toggle"
+                        />
 
-                        </div>
                         <div className="drawer-side">
-                            <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                            <ul className="menu p-4 w-80 min-h-full  text-base-contain text-white">
                                 {/* Sidebar content here */}
-                                <li><Link to='/admin/showschool'>Show all school</Link></li>
-                                <li><Link to='/admin/addschool'>Add new school</Link></li>
-                                <li><Link to='/admin/createfixture'>Fixture</Link></li>
-                            </ul>
+                                <div className="hover:bg-sky-700 p-2 px-8">
+                                    <NavLink
+                                        style={{ padding: "10px" }}
+                                        to="/admin/showschool"
+                                        className={({ isActive, isPending }) =>
+                                            isPending
+                                                ? "pending"
+                                                : isActive
+                                                ? "active"
+                                                : "notActive"
+                                        }
+                                    >
+                                        Show all school
+                                    </NavLink>
+                                </div>
 
+                                <div className="hover:bg-sky-700 p-2 px-8">
+                                    <NavLink
+                                        style={{ padding: "10px" }}
+                                        to="/admin/addschool"
+                                        className={({ isActive, isPending }) =>
+                                            isPending
+                                                ? "pending"
+                                                : isActive
+                                                ? "active"
+                                                : "notActive"
+                                        }
+                                    >
+                                        Add new school
+                                    </NavLink>
+                                </div>
+                                <div className="hover:bg-sky-700 p-2 px-8">
+                                    <NavLink
+                                        style={{ padding: "10px" }}
+                                        to="/admin/createfixture"
+                                        className={({ isActive, isPending }) =>
+                                            isPending
+                                                ? "pending"
+                                                : isActive
+                                                ? "active"
+                                                : "notActive"
+                                        }
+                                    >
+                                        Create Fixture
+                                    </NavLink>
+                                </div>
+
+                                <div className="hover:bg-sky-700 p-2 px-8">
+                                    <NavLink
+                                        style={{ padding: "10px" }}
+                                        to="/admin/knockoutmatch/groupstage"
+                                        className={({ isActive, isPending }) =>
+                                            isPending
+                                                ? "pending"
+                                                : isActive
+                                                ? "active"
+                                                : "notActive"
+                                        }
+                                    >
+                                        Update Match Score
+                                    </NavLink>
+                                </div>
+                            </ul>
                         </div>
                     </div>
                 </div>
-               
             </div>
         </div>
     );

@@ -59,39 +59,6 @@ const AddSchool = () => {
                 console.error('Error:', error);
             });
 
-        
-
-        // createUser(email,password)
-        // .then(result=>{
-
-        //     updateProfile(auth.currentUser, {
-        //         displayName: name,
-                
-        //     }).then((result) => {
-        //         // Profile updated!
-        //         console.log('updated profile name',auth.currentUser.displayName);
-        //         Swal.fire({
-        //             position: "top-end",
-        //             icon: "success",
-        //             title: "School added successfully",
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //         });
-        //         // ...
-        //         // alert('added successfuly');
-        //         // console.log(result.user);
-               
-        //     }).catch((error) => {
-        //          alert('failed');
-                
-        //     });
-        // })
-        // .catch(error=>{
-        //     alert('failed to add school');
-        //     console.log(err);  
-        // })
-
-
     }
     return (
         <div className="p-16 w-full bg-slate-200">
