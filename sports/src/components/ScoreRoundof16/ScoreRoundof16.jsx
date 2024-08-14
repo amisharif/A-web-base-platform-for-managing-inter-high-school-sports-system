@@ -30,7 +30,7 @@ const ScoreRoundof16 = () => {
                         className="font-bold py-5 mt-24 text-red-500 text-3xl"
                     >
                         {" "}
-                        Round of 16 is not started yet.
+                        Round of 16 is not started yet...
                     </h2>
                 )}
 
