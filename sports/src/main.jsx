@@ -69,7 +69,7 @@ const router = createBrowserRouter([
             {
                 path: "/matchscore",
                 element: <AllScore></AllScore>,
-                loader: () => fetch("https://server-tau-ashen.vercel.app/matchscore"),
+                loader: () => fetch("https://sports-back-2jl2.onrender.com/matchscore"),
                 children: [
                     {
                         path: "/matchscore/1stround",
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
                 element: <MatchDetails></MatchDetails>,
                 loader: ({ params }) =>
                     fetch(
-                        `https://server-tau-ashen.vercel.app/playersinmatch/${params.matchId}`
+                        `https://sports-back-2jl2.onrender.com/playersinmatch/${params.matchId}`
                     ),
             },
             {
@@ -109,22 +109,22 @@ const router = createBrowserRouter([
             {
                 path: "/statistics",
                 element: <Statistics></Statistics>,
-                loader: () => fetch("https://server-tau-ashen.vercel.app/statistics"),
+                loader: () => fetch("https://sports-back-2jl2.onrender.com/statistics"),
             },
             {
                 path: "/players",
                 element: <Players></Players>,
-                loader: () => fetch("https://server-tau-ashen.vercel.app/playerinfo"),
+                loader: () => fetch("https://sports-back-2jl2.onrender.com/playerinfo"),
             },
             {
                 path: "/blog",
                 element: <Blog></Blog>,
-                loader: () => fetch("https://server-tau-ashen.vercel.app/playerinfo"),
+                loader: () => fetch("https://sports-back-2jl2.onrender.com/playerinfo"),
             },
             {
                 path: "/management",
                 element: <Management></Management>,
-                loader: () => fetch("https://server-tau-ashen.vercel.app/playerinfo"),
+                loader: () => fetch("https://sports-back-2jl2.onrender.com/playerinfo"),
             },
             {
                 path: "/history",
@@ -137,8 +137,8 @@ const router = createBrowserRouter([
             {
                 path: "/standing",
                 element: <Standing></Standing>,
-                //loader: () => fetch('https://server-tau-ashen.vercel.app/standing')
-                // loader: () => fetch('https://server-tau-ashen.vercel.app/standdataa')
+                //loader: () => fetch('https://sports-back-2jl2.onrender.com/standing')
+                // loader: () => fetch('https://sports-back-2jl2.onrender.com/standdataa')
 
                 children: [
                     {
@@ -167,14 +167,14 @@ const router = createBrowserRouter([
                         <ShowTeamInfo></ShowTeamInfo>
                     </PrivateRoute>
                 ),
-                loader: ({ params }) => fetch(`https://server-tau-ashen.vercel.app/teaminfo`),
+                loader: ({ params }) => fetch(`https://sports-back-2jl2.onrender.com/teaminfo`),
             },
             {
                 path: "/players/:eiin",
                 // element: <PrivateRoute><ShowTeamInfo></ShowTeamInfo></PrivateRoute>,
                 element: <ShowTeamInfo></ShowTeamInfo>,
                 loader: ({ params }) =>
-                    fetch(`https://server-tau-ashen.vercel.app/players/${params.eiin}`),
+                    fetch(`https://sports-back-2jl2.onrender.com/players/${params.eiin}`),
             },
 
             {
@@ -185,7 +185,7 @@ const router = createBrowserRouter([
                 path: "/updateplayerinfo/:birthid",
                 element: <UpdatePlayerInfo></UpdatePlayerInfo>,
                 loader: ({ params }) =>
-                    fetch(`https://server-tau-ashen.vercel.app/playerinfo/${params.birthid}`),
+                    fetch(`https://sports-back-2jl2.onrender.com/playerinfo/${params.birthid}`),
             },
 
             {
@@ -205,7 +205,7 @@ const router = createBrowserRouter([
                     {
                         path: "/admin/createfixture",
                         element: <Fixture></Fixture>,
-                        loader: () => fetch(`https://server-tau-ashen.vercel.app/groupclone`),
+                        loader: () => fetch(`https://sports-back-2jl2.onrender.com/groupclone`),
                     },
                     {
                         path: "/admin/createfixture/:matchid",
@@ -215,19 +215,19 @@ const router = createBrowserRouter([
                     {
                         path: "/admin/showschool",
                         element: <ShowSchool></ShowSchool>,
-                        loader: () => fetch(`https://server-tau-ashen.vercel.app/showschool`),
+                        loader: () => fetch(`https://sports-back-2jl2.onrender.com/showschool`),
                     },
                     {
                         path: "/admin/showschool/:id",
                         element: <ShowTeamInfo></ShowTeamInfo>,
                         loader: ({ params }) =>
-                            fetch(`https://server-tau-ashen.vercel.app/players/${params.id}`),
+                            fetch(`https://sports-back-2jl2.onrender.com/players/${params.id}`),
                     },
                     {
                         path: "/admin/editschool/:id",
                         loader: ({ params }) =>
                             fetch(
-                                `https://server-tau-ashen.vercel.app/showschool/${params.id}`
+                                `https://sports-back-2jl2.onrender.com/showschool/${params.id}`
                             ),
                         element: <EditSchool></EditSchool>,
                     },
