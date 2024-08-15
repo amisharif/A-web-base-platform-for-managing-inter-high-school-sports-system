@@ -59,14 +59,14 @@ const AuthProvider = ({children}) => {
 
 
     useEffect(() => {
-        fetch('http://localhost:3000/showschool')
+        fetch('https://server-tau-ashen.vercel.app/showschool')
             .then(response => response.json())
             .then(da => setSchoolList(da))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:3000/groupclone')
+        fetch('https://server-tau-ashen.vercel.app/groupclone')
             .then(response => response.json())
             .then(da => setFixtureData(da))
             .catch(error => console.error('Error fetching data:', error));
@@ -78,7 +78,7 @@ const AuthProvider = ({children}) => {
         const chr = String.fromCharCode(i)
    
         useEffect(() => {
-            fetch(`http://localhost:3000/standing/${chr}`)
+            fetch(`https://server-tau-ashen.vercel.app/standing/${chr}`)
                 .then(response => response.json())
                 .then(data => 
                     {
@@ -123,37 +123,37 @@ const AuthProvider = ({children}) => {
     // ---------------------------------------------------------------------------
 
     useEffect(() => {                   //get all player info
-        fetch('http://localhost:3000/playerinfo')
+        fetch('https://server-tau-ashen.vercel.app/playerinfo')
             .then(response => response.json())
             .then(data => setPlayerInfo(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
     useEffect(() => {                   //get all player info
-        fetch('http://localhost:3000/topscorer')
+        fetch('https://server-tau-ashen.vercel.app/topscorer')
             .then(response => response.json())
             .then(data => setTopScorer(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
     useEffect(() => {                   //get all player info
-        fetch('http://localhost:3000/topassist')
+        fetch('https://server-tau-ashen.vercel.app/topassist')
             .then(response => response.json())
             .then(data => setTopAssist(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
     useEffect(() => {                   //get all player info
-        fetch('http://localhost:3000/topyellowcard')
+        fetch('https://server-tau-ashen.vercel.app/topyellowcard')
             .then(response => response.json())
             .then(data => setTopYellowCard(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
     useEffect(() => {                   //get all player info
-        fetch('http://localhost:3000/topredcard')
+        fetch('https://server-tau-ashen.vercel.app/topredcard')
             .then(response => response.json())
             .then(data => setTopRedCard(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
     useEffect(() => {                   //get all player info
-        fetch('http://localhost:3000/management')
+        fetch('https://server-tau-ashen.vercel.app/management')
             .then(response => response.json())
             .then(data => setManagement(data))
             .catch(error => console.error('Error fetching data:', error));
