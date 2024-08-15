@@ -102,7 +102,9 @@ async function run() {
             "knockoutMatchCollection"
         );
 
-
+        app.get("/",(req,res)=>{
+            res.send({"name":"sharif"})
+        });
         app.get("/statistics", async (req, res) => {
             const stat = await statisticsCollection
                 .find({})
